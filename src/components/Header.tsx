@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import "../assets/styles/dashboard.css";
 import NotificationsDropdown from "./NotificationsDropdown";
 import { FaUser, FaSignOutAlt, FaChevronDown, FaChevronUp, FaSearch, FaBars } from "react-icons/fa";
+import { useUser } from "@/context/userContext";
 
 interface User {
   name?: string;
@@ -14,6 +15,9 @@ export default function DashboardNavbar() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [user, setUser] = useState<User>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const { usercontext, setUserContext } = useUser();
+  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -68,13 +72,17 @@ export default function DashboardNavbar() {
           <div className="profile-info" onClick={toggleDropdown}>
             <div className="profile-pic">
               <img
-                src="https://randomuser.me/api/portraits/men/85.jpg"
+                src={usercontext.profile_img || user?.profile_img}
                 alt="Profile Picture"
               />
             </div>
             <div className="profile-name">
-              <span>{user?.name || "User"}</span>
-              {isDropdownOpen ? <FaChevronUp className="chevron-icon" /> : <FaChevronDown className="chevron-icon" />}
+              <span>{usercontext.name || user?.name || "User"}</span>
+              {isDropdownOpen ? (
+                <FaChevronUp className="chevron-icon" />
+              ) : (
+                <FaChevronDown className="chevron-icon" />
+              )}
             </div>
           </div>
 
@@ -84,11 +92,10 @@ export default function DashboardNavbar() {
                 <FaUser className="menu-icon" /> My Profile
               </a>
 
-              <button onClick={()=>handleLogout()}>  
-              <a href="/login">
-                <FaSignOutAlt className="menu-icon" /> Logout
-              </a>
-
+              <button onClick={() => handleLogout()}>
+                <a href="/login">
+                  <FaSignOutAlt className="menu-icon" /> Logout
+                </a>
               </button>
             </div>
           )}
@@ -106,13 +113,14 @@ export default function DashboardNavbar() {
           position: relative;
           z-index: 1000;
         }
-        
-        .navbar-left, .navbar-right {
+
+        .navbar-left,
+        .navbar-right {
           display: flex;
           align-items: center;
           gap: 20px;
         }
-        
+
         .mobile-toggle-btn {
           background: none;
           border: none;
@@ -121,7 +129,7 @@ export default function DashboardNavbar() {
           margin-right: 15px;
           display: none;
         }
-        
+
         .search-box {
           display: flex;
           align-items: center;
@@ -129,7 +137,7 @@ export default function DashboardNavbar() {
           border-radius: 8px;
           padding: 8px 15px;
         }
-        
+
         .search-box input {
           border: none;
           background: none;
@@ -137,11 +145,11 @@ export default function DashboardNavbar() {
           outline: none;
           width: 200px;
         }
-        
+
         .profile-dropdown {
           position: relative;
         }
-        
+
         .profile-info {
           display: flex;
           align-items: center;
@@ -150,11 +158,11 @@ export default function DashboardNavbar() {
           border-radius: 4px;
           transition: background-color 0.2s;
         }
-        
+
         .profile-info:hover {
           background-color: rgba(0, 0, 0, 0.05);
         }
-        
+
         .profile-pic {
           width: 36px;
           height: 36px;
@@ -162,28 +170,28 @@ export default function DashboardNavbar() {
           overflow: hidden;
           margin-right: 10px;
         }
-        
+
         .profile-pic img {
           width: 100%;
           height: 100%;
           object-fit: cover;
         }
-        
+
         .profile-name {
           display: flex;
           align-items: center;
           font-weight: 500;
         }
-        
+
         .profile-name span {
           margin-right: 8px;
         }
-        
+
         .chevron-icon {
           font-size: 12px;
           color: #718096;
         }
-        
+
         .dropdown-menu {
           position: absolute;
           top: 100%;
@@ -196,10 +204,10 @@ export default function DashboardNavbar() {
           overflow: hidden;
           animation: dropdownFade 0.2s ease-out;
           margin-top: 8px;
-          display:flex;
+          display: flex;
           flex-direction: column;
         }
-        
+
         @keyframes dropdownFade {
           from {
             opacity: 0;
@@ -210,7 +218,7 @@ export default function DashboardNavbar() {
             transform: translateY(0);
           }
         }
-        
+
         .dropdown-menu a {
           display: flex;
           align-items: center;
@@ -219,28 +227,28 @@ export default function DashboardNavbar() {
           text-decoration: none;
           transition: background-color 0.2s;
         }
-        
+
         .dropdown-menu a:hover {
           background-color: #f7fafc;
           color: #2d3748;
         }
-        
+
         .menu-icon {
           margin-right: 12px;
           width: 16px;
           text-align: center;
           color: #718096;
         }
-        
+
         .dropdown-menu a:not(:last-child) {
           border-bottom: 1px solid #edf2f7;
         }
-        
+
         @media (max-width: 768px) {
           .mobile-toggle-btn {
             display: block;
           }
-          
+
           .search-box {
             display: none;
           }
