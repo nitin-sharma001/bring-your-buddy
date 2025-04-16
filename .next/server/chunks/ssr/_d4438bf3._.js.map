@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://F%3A/mindcode_lab/student-panel/src/app/%28protectedroute%29/layout.tsx"],"sourcesContent":["\"use client\"; // ✅ Make RootLayout a Client Component\r\nimport \"bootstrap/dist/css/bootstrap.min.css\";\r\nimport useAuth from \"@/utils/auth\";\r\n\r\nexport default function RootLayout({\r\n  children,\r\n}: Readonly<{ children: React.ReactNode }>) {\r\n  const { isAuthenticated } = useAuth();\r\n\r\n  if (!isAuthenticated) return null; // Prevent rendering if not authenticated\r\n\r\n  return (\r\n    <html lang=\"en\">\r\n      <body>{children}</body>\r\n    </html>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;;;;AAAA,cAAc,uCAAuC;;;;AAItC,SAAS,WAAW,EACjC,QAAQ,EACgC;IACxC,MAAM,EAAE,eAAe,EAAE,GAAG;IAE5B,IAAI,CAAC,iBAAiB,OAAO,MAAM,yCAAyC;IAE5E,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;sBAAM;;;;;;;;;;;AAGb","debugId":null}},
+    {"offset": {"line": 43, "column": 0}, "map": {"version":3,"sources":["file://F%3A/mindcode_lab/student-panel/node_modules/next/src/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-ssr'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,4HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0],"debugId":null}}]
+}

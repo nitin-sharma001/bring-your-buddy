@@ -16,8 +16,6 @@ import {
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
-import * as pdfjsLib from "pdfjs-dist";
-import "pdfjs-dist/build/pdf.worker.entry";
 import { Button, Card, Badge, ProgressBar } from "react-bootstrap";
 import { IoIosArrowDropdown } from "react-icons/io";
 
@@ -39,76 +37,14 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const [thumbnail, setThumbnail] = useState("");
   const [thumbnails, setThumbnails] = useState({});
   const [document_verified, setDocumentVerfied] = useState(false);
 
   const [elgible, setEligible] = useState(false);
 
-  useEffect(() => {
-    if (offerLetters[0]?.url) {
-      generateThumbnail(offerLetters[0]?.url);
-    }
-  }, [offerLetters]);
 
-  useEffect(() => {
-    documents.forEach((file) => {
-      if (!thumbnails[file.url]) {
-        generateThumbnails(file.url);
-      }
-    });
-  }, [documents]);
 
-  const generateThumbnail = async (pdfUrl) => {
-    try {
-      const loadingTask = pdfjsLib.getDocument(pdfUrl);
-      const pdf = await loadingTask.promise;
-      const page = await pdf.getPage(1);
 
-      const scale = 1.5;
-      const viewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      const renderContext = { canvasContext: context, viewport };
-      await page.render(renderContext).promise;
-
-      setThumbnail(canvas.toDataURL("image/png"));
-    } catch (error) {
-      console.error("Error generating PDF thumbnail:", error);
-    }
-  };
-
-  const generateThumbnails = async (pdfUrl) => {
-    try {
-      const loadingTask = pdfjsLib.getDocument(pdfUrl);
-      const pdf = await loadingTask.promise;
-      const page = await pdf.getPage(1);
-
-      const scale = 1.5;
-      const viewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      const renderContext = { canvasContext: context, viewport };
-      await page.render(renderContext).promise;
-
-      setThumbnails((prev) => ({
-        ...prev,
-        [pdfUrl]: canvas.toDataURL("image/png"),
-      }));
-    } catch (error) {
-      console.error("Error generating PDF thumbnail:", error);
-    }
-  };
 
   const fetchOfferletter = () => {
     setLoading(true);

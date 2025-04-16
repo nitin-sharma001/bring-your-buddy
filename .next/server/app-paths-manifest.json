@@ -1,0 +1,14 @@
+{
+  "/(protectedroute)/profile/page": "app/(protectedroute)/profile/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/application-submitted/get-status/route": "app/api/application-submitted/get-status/route.js",
+  "/api/documentverify/iseligible/updatetozero/route": "app/api/documentverify/iseligible/updatetozero/route.js",
+  "/api/documentverify/updatetozero/route": "app/api/documentverify/updatetozero/route.js",
+  "/api/getuserbyemail/route": "app/api/getuserbyemail/route.js",
+  "/api/offer-letter/getStatus/route": "app/api/offer-letter/getStatus/route.js",
+  "/api/payment/getpaymentinfo/route": "app/api/payment/getpaymentinfo/route.js",
+  "/api/programs/route": "app/api/programs/route.js",
+  "/api/universities/route": "app/api/universities/route.js",
+  "/api/update-profile/route": "app/api/update-profile/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
+}

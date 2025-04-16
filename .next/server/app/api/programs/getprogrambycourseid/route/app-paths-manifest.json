@@ -1,0 +1,3 @@
+{
+  "/api/programs/getprogrambycourseid/route": "app/api/programs/getprogrambycourseid/route.js"
+}

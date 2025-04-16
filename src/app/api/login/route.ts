@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     // Check if the user exists
     const [users]: any[] = await db.query(
-      "SELECT id, name, email,university_id,program_id, phone_number, offer_letter_status, document_verified_status,password, is_verified FROM users WHERE email = ?",
+      "SELECT id, name, email,profile_img, university_id,program_id, phone_number, offer_letter_status, document_verified_status,password, is_verified FROM users WHERE email = ?",
       [email]
     );
 

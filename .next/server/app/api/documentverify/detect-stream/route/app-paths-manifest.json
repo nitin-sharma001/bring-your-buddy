@@ -1,0 +1,3 @@
+{
+  "/api/documentverify/detect-stream/route": "app/api/documentverify/detect-stream/route.js"
+}

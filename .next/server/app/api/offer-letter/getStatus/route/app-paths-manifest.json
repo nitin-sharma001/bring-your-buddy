@@ -1,0 +1,3 @@
+{
+  "/api/offer-letter/getStatus/route": "app/api/offer-letter/getStatus/route.js"
+}

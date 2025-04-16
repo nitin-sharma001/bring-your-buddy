@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://F%3A/mindcode_lab/student-panel/src/app/applications/offerletter/layout.tsx"],"sourcesContent":["\"use client\"\r\nimport Sidebar from '@/components/Sidebar';\r\nimport Header from \"@/components/Header\";\r\n\r\nexport default function OfferLetterLayout({ children }) {\r\n  return (\r\n    <div className=\"layout\">\r\n      {/* <Sidebar /> */}\r\n      <div className=\"main-content\">\r\n        {/* <Header /> */}\r\n        <div className=\"dashboard-content\">\r\n          {children}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  );\r\n} "],"names":[],"mappings":";;;;AAAA;;AAIe,SAAS,kBAAkB,EAAE,QAAQ,EAAE;IACpD,qBACE,6LAAC;QAAI,WAAU;kBAEb,cAAA,6LAAC;YAAI,WAAU;sBAEb,cAAA,6LAAC;gBAAI,WAAU;0BACZ;;;;;;;;;;;;;;;;AAKX;KAZwB","debugId":null}}]
+}

@@ -1,0 +1,3 @@
+{
+  "/api/documentverify/getStatus/route": "app/api/documentverify/getStatus/route.js"
+}

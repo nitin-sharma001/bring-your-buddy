@@ -13,12 +13,15 @@ import {
   IoIosCloudUpload,
 } from "react-icons/io";
 import Image from "next/image";
+import { FaPen } from "react-icons/fa";
+import { useUser } from "@/context/userContext";
 
 export default function ProfilePage() {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
     email: "",
+    profile_img:"",
     phone_number: "",
     program_id: "",
     university_id: "",
@@ -27,11 +30,17 @@ export default function ProfilePage() {
     bachelor_certificate : null,
   });
 
+
+  const { usercontext, setUserContext } = useUser();
+
+
   const [program, setProgram] = useState();
   const [university, setUniversity] = useState();
   const [loading, setLoading] = useState(false);
   const [tenthPreview, setTenthPreview] = useState(null);
   const [twelfthPreview, setTwelfthPreview] = useState(null);
+
+  const [profileToggle, setProfileToggle] = useState(false);
 
 
   const [bachelor, setBachelor] = useState(false);
@@ -40,12 +49,21 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    setUserContext((prev) => ({
+      ...prev,
+      id: user.id,
+      name: user.name || "",
+      email: user.email || "",
+      profile_img: user.profile_img || "",
+      phone_number: user.phone_number || "",
+    }));
     if (user?.id) {
       setFormData((prev) => ({
         ...prev,
         id: user.id,
         name: user.name || "",
         email: user.email || "",
+        profile_img: user.profile_img || "",
         phone_number: user.phone_number || "",
         program_id: user.program_id || "",
         university_id: user.university_id || "",
@@ -168,6 +186,9 @@ export default function ProfilePage() {
     Object.keys(formData).forEach((key) => {
       if (formData[key]) {
         formDataToSend.append(key, formData[key]);
+
+        console.log(key, formData[key]);
+        
       }
     });
 
@@ -182,6 +203,15 @@ export default function ProfilePage() {
 
       axios.post("/api/getuserbyemail", { email }).then((res) => {
         console.log(res.data);
+
+        setUserContext((prev) => ({
+          ...prev,
+          id: res.data.user.id,
+          name: res.data.user.name || "",
+          email: res.data.user.email || "",
+          profile_img: res.data.user.profile_img || "",
+          phone_number: res.data.user.phone_number || "",
+        }));
 
         localStorage.setItem("user", JSON.stringify(res.data.user));
       });
@@ -234,10 +264,41 @@ export default function ProfilePage() {
         <Col md={4}>
           <Card className="profile-card mb-4">
             <Card.Body className="text-center">
-              <div className="profile-avatar-container mb-3">
-                <div className="profile-avatar gradient-blue">
-                  {formData.name ? formData.name.charAt(0).toUpperCase() : "U"}
+              <div className="profile-avatar-container mb-3 d-flex flex-column align-items-center">
+                <div className="profile-avatar gradient-blue position-relative">
+                  {/* {formData.name ? formData.name.charAt(0).toUpperCase() : "U"} */}
+                  <img
+                    className="rounded-circle w-100 h-100"
+                    src={usercontext?.profile_img}
+                    alt="aaa"
+                  />
+                  <FaPen
+                    onClick={() => {
+                      setProfileToggle(!profileToggle);
+                    }}
+                    size={24}
+                    className="position-absolute bottom-0 end-0 text-primary cursor-pointer"
+                  />
                 </div>
+
+                {profileToggle && (
+                  <Form.Group className="form-group upload-group">
+                    <div className="custom-file-upload">
+                      <input
+                        type="file"
+                        name="profile_img"
+                        id="profile_img"
+                        className="file-input"
+                        onChange={handleFileChange}
+                        accept="application/pdf, image/*"
+                      />
+                      <label htmlFor="profile_img" className="file-label">
+                        <IoIosCloudUpload className="upload-icon" />
+                        <span>Choose File</span>
+                      </label>
+                    </div>
+                  </Form.Group>
+                )}
               </div>
               <h3 className="mb-1">{formData.name || "Your Name"}</h3>
               <p className="text-muted mb-3">
@@ -485,41 +546,43 @@ export default function ProfilePage() {
                         </Form.Group>
                       </Col>
                     </Row>
-                    {
-                      bachelor ? (<Row>
-                      <Col md={6}>
-                        <Form.Group className="form-group upload-group">
-                          <Form.Label className="d-flex align-items-center">
-                            <IoIosCloudUpload className="form-icon" /> Bachelor
-                            Certificate
-                          </Form.Label>
-                          <div className="custom-file-upload">
-                            <input
-                              type="file"
-                              name="bachelor_certificate"
-                              id="bachelor_certificate"
-                              className="file-input"
-                              onChange={handleFileChange}
-                              accept="application/pdf, image/*"
-                            />
-                            <label
-                              htmlFor="bachelor_certificate"
-                              className="file-label"
-                            >
-                              <IoIosCloudUpload className="upload-icon" />
-                              <span>Choose File</span>
-                            </label>
-                            {tenthPreview && (
-                              <div className="file-preview">
-                                <span>File selected</span>
-                                <Badge bg="success">Ready to upload</Badge>
-                              </div>
-                            )}
-                          </div>
-                        </Form.Group>
-                      </Col>
-                    </Row>) : ""
-                    }
+                    {bachelor ? (
+                      <Row>
+                        <Col md={6}>
+                          <Form.Group className="form-group upload-group">
+                            <Form.Label className="d-flex align-items-center">
+                              <IoIosCloudUpload className="form-icon" />{" "}
+                              Bachelor Certificate
+                            </Form.Label>
+                            <div className="custom-file-upload">
+                              <input
+                                type="file"
+                                name="bachelor_certificate"
+                                id="bachelor_certificate"
+                                className="file-input"
+                                onChange={handleFileChange}
+                                accept="application/pdf, image/*"
+                              />
+                              <label
+                                htmlFor="bachelor_certificate"
+                                className="file-label"
+                              >
+                                <IoIosCloudUpload className="upload-icon" />
+                                <span>Choose File</span>
+                              </label>
+                              {tenthPreview && (
+                                <div className="file-preview">
+                                  <span>File selected</span>
+                                  <Badge bg="success">Ready to upload</Badge>
+                                </div>
+                              )}
+                            </div>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 )}
 

@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
     // Find user with OTP
     const [users] = (await db.query(
-      "SELECT id, name, email,phone_number, offer_letter_status, otp, otp_expires_at FROM users WHERE email = ?",
+      "SELECT id, name, email,profile_img, phone_number, offer_letter_status, otp, otp_expires_at FROM users WHERE email = ?",
       [email]
     )) as any[];
 

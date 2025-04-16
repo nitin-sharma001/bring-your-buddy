@@ -1,0 +1,3 @@
+{
+  "/(protectedroute)/applications/payment/page": "app/(protectedroute)/applications/payment/page.js"
+}

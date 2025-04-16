@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 60, "column": 0}, "map": {"version":3,"sources":["file://F%3A/mindcode_lab/student-panel/src/app/api/update-profile/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\r\n\r\n\r\n\r\n\r\nexport async function POST(req) {\r\n    \r\n\r\n    try{\r\n\r\n        const data = await req.json();\r\n\r\n        console.log(data);\r\n        \r\n\r\n\r\n        return NextResponse.json({\r\n            data : data,\r\n            message : \"data is updated\"\r\n        })\r\n\r\n\r\n\r\n    }catch(err){\r\n\r\n        return NextResponse.json({\r\n          err: err,\r\n          message: \"data is not updated\",\r\n        });\r\n    }\r\n\r\n}"],"names":[],"mappings":";;;AAAA;;AAKO,eAAe,KAAK,GAAG;IAG1B,IAAG;QAEC,MAAM,OAAO,MAAM,IAAI,IAAI;QAE3B,QAAQ,GAAG,CAAC;QAIZ,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YACrB,MAAO;YACP,SAAU;QACd;IAIJ,EAAC,OAAM,KAAI;QAEP,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YACvB,KAAK;YACL,SAAS;QACX;IACJ;AAEJ","debugId":null}}]
+}
