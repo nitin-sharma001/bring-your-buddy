@@ -65,7 +65,9 @@ export default function OfferLetterPage() {
       const pdfjsLib = await import('pdfjs-dist');
       
       // Set the worker source
-      const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
+      const pdfjsWorker = await import(
+        "pdfjs-dist/legacy/build/pdf.worker.entry"
+      );
       pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
       
       const loadingTask = pdfjsLib.getDocument(pdfUrl);
@@ -100,7 +102,9 @@ export default function OfferLetterPage() {
       const pdfjsLib = await import('pdfjs-dist');
       
       // Set the worker source
-      const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
+      const pdfjsWorker = await import(
+        "pdfjs-dist/legacy/build/pdf.worker.entry"
+      );
       pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
       
       const loadingTask = pdfjsLib.getDocument(pdfUrl);
