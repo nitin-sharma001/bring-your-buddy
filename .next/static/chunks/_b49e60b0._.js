@@ -15,7 +15,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 "use client"; // if using Next.js App Router
 ;
-// Initial default user state
 const defaultUser = {
     id: "",
     name: "",
@@ -38,7 +37,7 @@ const UserProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/src/context/userContext.tsx",
-        lineNumber: 23,
+        lineNumber: 22,
         columnNumber: 5
     }, this);
 };

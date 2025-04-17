@@ -2,9 +2,8 @@
 
 import { createContext, useContext, useState } from "react";
 
-// Initial default user state
 const defaultUser = {
-    id : "",
+  id : "",
   name: "",
   email: "",
   profile_img: "",

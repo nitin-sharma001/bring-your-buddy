@@ -214,22 +214,7 @@ export default function Login() {
                   Sign In
                 </Button>
 
-                <div className="social-login">
-                  <p className="text-center my-3 text-divider">
-                    <span>or sign in with</span>
-                  </p>
-                  <div className="d-flex justify-content-center gap-3">
-                    <button type="button" className="btn social-btn">
-                      <i className="fab fa-google"></i>
-                    </button>
-                    <button type="button" className="btn social-btn">
-                      <i className="fab fa-facebook-f"></i>
-                    </button>
-                    <button type="button" className="btn social-btn">
-                      <i className="fab fa-apple"></i>
-                    </button>
-                  </div>
-                </div>
+          
               </Form>
 
               <div className="text-center mt-4">

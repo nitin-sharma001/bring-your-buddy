@@ -16,10 +16,9 @@ export default function DashboardNavbar() {
   const [user, setUser] = useState<User>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const { usercontext, setUserContext } = useUser();
-  
+  const { usercontext } = useUser();
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchUser = async () => {
       const userString = localStorage.getItem("user");
       if (userString) {
@@ -30,7 +29,6 @@ export default function DashboardNavbar() {
 
     fetchUser();
     
-    // Handle clicks outside the dropdown
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);

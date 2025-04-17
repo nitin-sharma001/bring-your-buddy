@@ -6,13 +6,20 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { FaEye, FaFileAlt, FaCheckCircle, FaCreditCard, FaUniversity } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
-import * as pdfjsLib from "pdfjs-dist";
-import "pdfjs-dist/build/pdf.worker.entry";
+// import * as pdfjsLib from "pdfjs-dist";
+// import "pdfjs-dist/build/pdf.worker.entry";
 import { Button, Card, Badge, ProgressBar } from "react-bootstrap";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoDocumentText } from "react-icons/io5";
 
 import React from 'react'
+
+
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+import pdfWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
+
 
 interface OfferLetter {
   name: string;

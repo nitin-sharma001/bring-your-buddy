@@ -269,7 +269,7 @@ export default function ProfilePage() {
                   {/* {formData.name ? formData.name.charAt(0).toUpperCase() : "U"} */}
                   <img
                     className="rounded-circle w-100 h-100"
-                    src={usercontext?.profile_img}
+                    src={usercontext?.profile_img || null}
                     alt="aaa"
                   />
                   <FaPen

@@ -16,11 +16,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/md/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/fa/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$build$2f$pdf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/pdfjs-dist/build/pdf.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$build$2f$pdf$2e$worker$2e$entry$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/pdfjs-dist/build/pdf.worker.entry.js [app-client] (ecmascript)");
+// import * as pdfjsLib from "pdfjs-dist";
+// import "pdfjs-dist/build/pdf.worker.entry";
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__ = __turbopack_context__.i("[project]/node_modules/react-bootstrap/esm/Button.js [app-client] (ecmascript) <export default as Button>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Badge$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Badge$3e$__ = __turbopack_context__.i("[project]/node_modules/react-bootstrap/esm/Badge.js [app-client] (ecmascript) <export default as Badge>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$io5$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/io5/index.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$legacy$2f$build$2f$pdf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/pdfjs-dist/legacy/build/pdf.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$legacy$2f$build$2f$pdf$2e$worker$2e$entry$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/pdfjs-dist/legacy/build/pdf.worker.entry.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -35,6 +37,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$legacy$2f$build$2f$pdf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GlobalWorkerOptions"].workerSrc = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$legacy$2f$build$2f$pdf$2e$worker$2e$entry$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"];
 const page = ()=>{
     _s();
     const [documents, setDocuments] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -59,7 +62,7 @@ const page = ()=>{
     ]);
     const generateThumbnails = async (pdfUrl)=>{
         try {
-            const loadingTask = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$build$2f$pdf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocument"])(pdfUrl);
+            const loadingTask = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$pdfjs$2d$dist$2f$legacy$2f$build$2f$pdf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocument"])(pdfUrl);
             const pdf = await loadingTask.promise;
             const page = await pdf.getPage(1);
             const scale = 1.5;
@@ -161,12 +164,12 @@ const page = ()=>{
                                 className: "jsx-cbf2536f18f59bb5" + " " + "header-icon",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$io5$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["IoDocumentText"], {}, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                    lineNumber: 146,
+                                    lineNumber: 153,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                lineNumber: 145,
+                                lineNumber: 152,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -177,7 +180,7 @@ const page = ()=>{
                                         children: "Your Documents"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 156,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -185,19 +188,19 @@ const page = ()=>{
                                         children: "View and download your important files"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 157,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                lineNumber: 148,
+                                lineNumber: 155,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                        lineNumber: 144,
+                        lineNumber: 151,
                         columnNumber: 9
                     }, this),
                     paymentStatus === 0 && documents.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -209,25 +212,25 @@ const page = ()=>{
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaCreditCard"], {}, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                    lineNumber: 160,
+                                    lineNumber: 167,
                                     columnNumber: 15
                                 }, this),
                                 " Make Payment"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 155,
+                            lineNumber: 162,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                        lineNumber: 154,
+                        lineNumber: 161,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                lineNumber: 143,
+                lineNumber: 150,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -252,17 +255,17 @@ const page = ()=>{
                                                     className: "pdf-icon"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                    lineNumber: 181,
+                                                    lineNumber: 188,
                                                     columnNumber: 29
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 187,
                                                 columnNumber: 27
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 181,
                                             columnNumber: 25
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "jsx-cbf2536f18f59bb5" + " " + "document-thumbnail-loading",
@@ -270,17 +273,17 @@ const page = ()=>{
                                                 className: "pdf-icon-loading"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                lineNumber: 186,
+                                                lineNumber: 193,
                                                 columnNumber: 27
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                            lineNumber: 185,
+                                            lineNumber: 192,
                                             columnNumber: 25
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                        lineNumber: 172,
+                                        lineNumber: 179,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -291,7 +294,7 @@ const page = ()=>{
                                                 children: file.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                lineNumber: 191,
+                                                lineNumber: 198,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -304,19 +307,19 @@ const page = ()=>{
                                                             className: "me-1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                            lineNumber: 195,
+                                                            lineNumber: 202,
                                                             columnNumber: 27
                                                         }, this),
                                                         " Verified"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                    lineNumber: 194,
+                                                    lineNumber: 201,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                lineNumber: 193,
+                                                lineNumber: 200,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -330,12 +333,12 @@ const page = ()=>{
                                                         className: "jsx-cbf2536f18f59bb5" + " " + "btn btn-sm btn-light action-btn",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEye"], {}, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                            lineNumber: 207,
+                                                            lineNumber: 214,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                        lineNumber: 200,
+                                                        lineNumber: 207,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -345,40 +348,40 @@ const page = ()=>{
                                                         className: "jsx-cbf2536f18f59bb5" + " " + "btn btn-sm btn-light action-btn",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdOutlineFileDownload"], {}, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                            lineNumber: 215,
+                                                            lineNumber: 222,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 216,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                                lineNumber: 199,
+                                                lineNumber: 206,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                        lineNumber: 190,
+                                        lineNumber: 197,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                lineNumber: 171,
+                                lineNumber: 178,
                                 columnNumber: 19
                             }, this)
                         }, index, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 170,
+                            lineNumber: 177,
                             columnNumber: 17
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                    lineNumber: 168,
+                    lineNumber: 175,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "jsx-cbf2536f18f59bb5" + " " + "empty-state text-center py-5",
@@ -390,12 +393,12 @@ const page = ()=>{
                                 className: "text-muted"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                lineNumber: 226,
+                                lineNumber: 233,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 225,
+                            lineNumber: 232,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h5", {
@@ -403,7 +406,7 @@ const page = ()=>{
                             children: "No Documents Available"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 228,
+                            lineNumber: 235,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -411,13 +414,13 @@ const page = ()=>{
                             children: "Your documents will be displayed here once they're ready"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 229,
+                            lineNumber: 236,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                    lineNumber: 224,
+                    lineNumber: 231,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "jsx-cbf2536f18f59bb5" + " " + "payment-required text-center py-5",
@@ -429,12 +432,12 @@ const page = ()=>{
                                 className: "text-danger"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                                lineNumber: 237,
+                                lineNumber: 244,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 236,
+                            lineNumber: 243,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h5", {
@@ -442,7 +445,7 @@ const page = ()=>{
                             children: "Payment Required"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 239,
+                            lineNumber: 246,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -450,7 +453,7 @@ const page = ()=>{
                             children: "Your documents will be generated after payment is completed"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 240,
+                            lineNumber: 247,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -460,18 +463,18 @@ const page = ()=>{
                             children: "Complete Payment"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                            lineNumber: 243,
+                            lineNumber: 250,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                    lineNumber: 235,
+                    lineNumber: 242,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-                lineNumber: 165,
+                lineNumber: 172,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -481,7 +484,7 @@ const page = ()=>{
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/(protectedroute)/documents/page.tsx",
-        lineNumber: 142,
+        lineNumber: 149,
         columnNumber: 5
     }, this);
 };

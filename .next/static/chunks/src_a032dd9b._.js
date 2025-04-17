@@ -1478,9 +1478,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$js
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NotificationsDropdown$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/NotificationsDropdown.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/fa/index.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/context/userContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -1491,6 +1493,7 @@ function DashboardNavbar() {
     const [isDropdownOpen, setDropdownOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
     const dropdownRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const { usercontext } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "DashboardNavbar.useEffect": ()=>{
             const fetchUser = {
@@ -1503,7 +1506,6 @@ function DashboardNavbar() {
                 }
             }["DashboardNavbar.useEffect.fetchUser"];
             fetchUser();
-            // Handle clicks outside the dropdown
             const handleClickOutside = {
                 "DashboardNavbar.useEffect.handleClickOutside": (event)=>{
                     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -1526,200 +1528,204 @@ function DashboardNavbar() {
         localStorage.removeItem("user");
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-        className: "jsx-86355541bd258237" + " " + "dashboard-navbar py-3",
+        className: "jsx-2ecd64cb58cc71ec" + " " + "dashboard-navbar py-3",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-86355541bd258237" + " " + "navbar-left",
+                className: "jsx-2ecd64cb58cc71ec" + " " + "navbar-left",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         id: "mobileToggleBtn",
-                        className: "jsx-86355541bd258237" + " " + "mobile-toggle-btn",
+                        className: "jsx-2ecd64cb58cc71ec" + " " + "mobile-toggle-btn",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaBars"], {}, void 0, false, {
                             fileName: "[project]/src/components/Header.tsx",
-                            lineNumber: 56,
+                            lineNumber: 58,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Header.tsx",
-                        lineNumber: 55,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-86355541bd258237" + " " + "search-box",
+                        className: "jsx-2ecd64cb58cc71ec" + " " + "search-box",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaSearch"], {
                                 className: "search-icon"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header.tsx",
-                                lineNumber: 59,
+                                lineNumber: 61,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                 type: "text",
                                 placeholder: "Search...",
-                                className: "jsx-86355541bd258237"
+                                className: "jsx-2ecd64cb58cc71ec"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header.tsx",
-                                lineNumber: 60,
+                                lineNumber: 62,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Header.tsx",
-                        lineNumber: 58,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Header.tsx",
-                lineNumber: 54,
+                lineNumber: 56,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-86355541bd258237" + " " + "navbar-right",
+                className: "jsx-2ecd64cb58cc71ec" + " " + "navbar-right",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$NotificationsDropdown$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/components/Header.tsx",
-                        lineNumber: 65,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: dropdownRef,
-                        className: "jsx-86355541bd258237" + " " + "profile-dropdown",
+                        className: "jsx-2ecd64cb58cc71ec" + " " + "profile-dropdown",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 onClick: toggleDropdown,
-                                className: "jsx-86355541bd258237" + " " + "profile-info",
+                                className: "jsx-2ecd64cb58cc71ec" + " " + "profile-info",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-86355541bd258237" + " " + "profile-pic",
+                                        className: "jsx-2ecd64cb58cc71ec" + " " + "profile-pic",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                            src: "https://randomuser.me/api/portraits/men/85.jpg",
+                                            src: usercontext.profile_img || user?.profile_img,
                                             alt: "Profile Picture",
-                                            className: "jsx-86355541bd258237"
+                                            className: "jsx-2ecd64cb58cc71ec"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 70,
+                                            lineNumber: 72,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 69,
+                                        lineNumber: 71,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-86355541bd258237" + " " + "profile-name",
+                                        className: "jsx-2ecd64cb58cc71ec" + " " + "profile-name",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-86355541bd258237",
-                                                children: user?.name || "User"
+                                                className: "jsx-2ecd64cb58cc71ec",
+                                                children: usercontext.name || user?.name || "User"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 76,
+                                                lineNumber: 78,
                                                 columnNumber: 15
                                             }, this),
                                             isDropdownOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaChevronUp"], {
                                                 className: "chevron-icon"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 77,
-                                                columnNumber: 33
+                                                lineNumber: 80,
+                                                columnNumber: 17
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaChevronDown"], {
                                                 className: "chevron-icon"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 77,
-                                                columnNumber: 76
+                                                lineNumber: 82,
+                                                columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 77,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Header.tsx",
-                                lineNumber: 68,
+                                lineNumber: 70,
                                 columnNumber: 11
                             }, this),
                             isDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-86355541bd258237" + " " + "dropdown-menu",
+                                className: "jsx-2ecd64cb58cc71ec" + " " + "dropdown-menu",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                         href: "/profile",
-                                        className: "jsx-86355541bd258237",
+                                        className: "jsx-2ecd64cb58cc71ec",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaUser"], {
                                                 className: "menu-icon"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 84,
+                                                lineNumber: 90,
                                                 columnNumber: 17
                                             }, this),
                                             " My Profile"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 83,
+                                        lineNumber: 89,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>handleLogout(),
-                                        className: "jsx-86355541bd258237",
+                                        className: "jsx-2ecd64cb58cc71ec",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: "/login",
-                                            className: "jsx-86355541bd258237",
+                                            className: "jsx-2ecd64cb58cc71ec",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaSignOutAlt"], {
                                                     className: "menu-icon"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 89,
-                                                    columnNumber: 17
+                                                    lineNumber: 95,
+                                                    columnNumber: 19
                                                 }, this),
                                                 " Logout"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 88,
-                                            columnNumber: 15
+                                            lineNumber: 94,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 87,
+                                        lineNumber: 93,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/Header.tsx",
-                                lineNumber: 82,
+                                lineNumber: 88,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Header.tsx",
-                        lineNumber: 67,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Header.tsx",
-                lineNumber: 64,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "86355541bd258237",
-                children: ".dashboard-navbar.jsx-86355541bd258237{z-index:1000;background-color:#fff;justify-content:space-between;align-items:center;padding:10px 20px;display:flex;position:relative;box-shadow:0 2px 10px #0000000d}.navbar-left.jsx-86355541bd258237,.navbar-right.jsx-86355541bd258237{align-items:center;gap:20px;display:flex}.mobile-toggle-btn.jsx-86355541bd258237{cursor:pointer;background:0 0;border:none;margin-right:15px;font-size:20px;display:none}.search-box.jsx-86355541bd258237{background-color:#f1f5f9;border-radius:8px;align-items:center;padding:8px 15px;display:flex}.search-box.jsx-86355541bd258237 input.jsx-86355541bd258237{background:0 0;border:none;outline:none;width:200px;margin-left:8px}.profile-dropdown.jsx-86355541bd258237{position:relative}.profile-info.jsx-86355541bd258237{cursor:pointer;border-radius:4px;align-items:center;padding:5px;transition:background-color .2s;display:flex}.profile-info.jsx-86355541bd258237:hover{background-color:#0000000d}.profile-pic.jsx-86355541bd258237{border-radius:50%;width:36px;height:36px;margin-right:10px;overflow:hidden}.profile-pic.jsx-86355541bd258237 img.jsx-86355541bd258237{object-fit:cover;width:100%;height:100%}.profile-name.jsx-86355541bd258237{align-items:center;font-weight:500;display:flex}.profile-name.jsx-86355541bd258237 span.jsx-86355541bd258237{margin-right:8px}.chevron-icon.jsx-86355541bd258237{color:#718096;font-size:12px}.dropdown-menu.jsx-86355541bd258237{z-index:100001;background:#fff;border-radius:8px;flex-direction:column;width:220px;margin-top:8px;animation:.2s ease-out dropdownFade;display:flex;position:absolute;top:100%;right:0;overflow:hidden;box-shadow:0 4px 12px #0000001a}@keyframes dropdownFade{0%{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}.dropdown-menu.jsx-86355541bd258237 a.jsx-86355541bd258237{color:#4a5568;align-items:center;padding:12px 16px;text-decoration:none;transition:background-color .2s;display:flex}.dropdown-menu.jsx-86355541bd258237 a.jsx-86355541bd258237:hover{color:#2d3748;background-color:#f7fafc}.menu-icon.jsx-86355541bd258237{text-align:center;color:#718096;width:16px;margin-right:12px}.dropdown-menu.jsx-86355541bd258237 a.jsx-86355541bd258237:not(:last-child){border-bottom:1px solid #edf2f7}@media (width<=768px){.mobile-toggle-btn.jsx-86355541bd258237{display:block}.search-box.jsx-86355541bd258237{display:none}}"
+                id: "2ecd64cb58cc71ec",
+                children: ".dashboard-navbar.jsx-2ecd64cb58cc71ec{z-index:1000;background-color:#fff;justify-content:space-between;align-items:center;padding:10px 20px;display:flex;position:relative;box-shadow:0 2px 10px #0000000d}.navbar-left.jsx-2ecd64cb58cc71ec,.navbar-right.jsx-2ecd64cb58cc71ec{align-items:center;gap:20px;display:flex}.mobile-toggle-btn.jsx-2ecd64cb58cc71ec{cursor:pointer;background:0 0;border:none;margin-right:15px;font-size:20px;display:none}.search-box.jsx-2ecd64cb58cc71ec{background-color:#f1f5f9;border-radius:8px;align-items:center;padding:8px 15px;display:flex}.search-box.jsx-2ecd64cb58cc71ec input.jsx-2ecd64cb58cc71ec{background:0 0;border:none;outline:none;width:200px;margin-left:8px}.profile-dropdown.jsx-2ecd64cb58cc71ec{position:relative}.profile-info.jsx-2ecd64cb58cc71ec{cursor:pointer;border-radius:4px;align-items:center;padding:5px;transition:background-color .2s;display:flex}.profile-info.jsx-2ecd64cb58cc71ec:hover{background-color:#0000000d}.profile-pic.jsx-2ecd64cb58cc71ec{border-radius:50%;width:36px;height:36px;margin-right:10px;overflow:hidden}.profile-pic.jsx-2ecd64cb58cc71ec img.jsx-2ecd64cb58cc71ec{object-fit:cover;width:100%;height:100%}.profile-name.jsx-2ecd64cb58cc71ec{align-items:center;font-weight:500;display:flex}.profile-name.jsx-2ecd64cb58cc71ec span.jsx-2ecd64cb58cc71ec{margin-right:8px}.chevron-icon.jsx-2ecd64cb58cc71ec{color:#718096;font-size:12px}.dropdown-menu.jsx-2ecd64cb58cc71ec{z-index:100001;background:#fff;border-radius:8px;flex-direction:column;width:220px;margin-top:8px;animation:.2s ease-out dropdownFade;display:flex;position:absolute;top:100%;right:0;overflow:hidden;box-shadow:0 4px 12px #0000001a}@keyframes dropdownFade{0%{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}.dropdown-menu.jsx-2ecd64cb58cc71ec a.jsx-2ecd64cb58cc71ec{color:#4a5568;align-items:center;padding:12px 16px;text-decoration:none;transition:background-color .2s;display:flex}.dropdown-menu.jsx-2ecd64cb58cc71ec a.jsx-2ecd64cb58cc71ec:hover{color:#2d3748;background-color:#f7fafc}.menu-icon.jsx-2ecd64cb58cc71ec{text-align:center;color:#718096;width:16px;margin-right:12px}.dropdown-menu.jsx-2ecd64cb58cc71ec a.jsx-2ecd64cb58cc71ec:not(:last-child){border-bottom:1px solid #edf2f7}@media (width<=768px){.mobile-toggle-btn.jsx-2ecd64cb58cc71ec{display:block}.search-box.jsx-2ecd64cb58cc71ec{display:none}}"
             }, void 0, false, void 0, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Header.tsx",
-        lineNumber: 53,
+        lineNumber: 55,
         columnNumber: 5
     }, this);
 }
-_s(DashboardNavbar, "CN2Snvqxkgt8JO5JUXWY7gdYGXU=");
+_s(DashboardNavbar, "i56KPgwads7EMrGIwdhVFfE/aXg=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$userContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
+    ];
+});
 _c = DashboardNavbar;
 var _c;
 __turbopack_context__.k.register(_c, "DashboardNavbar");
