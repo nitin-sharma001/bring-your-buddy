@@ -45,10 +45,18 @@ export default function OfferLetterPage() {
   const [thumbnail, setThumbnail] = useState("");
   const [thumbnails, setThumbnails] = useState({});
 
+  // useEffect(() => {
+  //   if (offerLetters[0]?.url) {
+  //     generateThumbnail(offerLetters[0]?.url);
+  //   }
+  // }, [offerLetters]);
+
   useEffect(() => {
-    if (offerLetters[0]?.url) {
-      generateThumbnail(offerLetters[0]?.url);
-    }
+    offerLetters.forEach((letter) => {
+      if (!thumbnails[letter.url]) {
+        generateThumbnails(letter.url);
+      }
+    });
   }, [offerLetters]);
 
   const generateThumbnail = async (pdfUrl: string) => {
@@ -487,48 +495,67 @@ export default function OfferLetterPage() {
         </Col>
       </Row>
 
-      {/* Offer Letter Preview Section */}
+            {/* Offer Letter Preview Section */}
       {(offerLetterGenerated || offerLetters.length > 0) && (
         <Card className="shadow-sm mb-4 mt-4">
           <Card.Header className="bg-light d-flex justify-content-between align-items-center">
             <h5 className="mb-0">Your Offer Letter</h5>
-            <div>
-              <Button 
-                variant="outline-primary" 
-                size="sm" 
-                className="me-2"
-                onClick={handleDownloadOfferLetter}
-              >
-                <MdOutlineFileDownload className="me-1" /> Download
-              </Button>
-              <Button 
-                variant="outline-secondary" 
-                size="sm"
-                onClick={() => window.open(offerLetters[0]?.url, '_blank')}
-              >
-                <FaEye className="me-1" /> View Full
-              </Button>
-            </div>
           </Card.Header>
           <Card.Body>
-            {thumbnail ? (
-              <div className="pdf-thumbnail-container">
-                <img 
-                  src={thumbnail} 
-                  alt="Offer Letter Preview" 
-                  className="pdf-thumbnail img-fluid" 
-                  onClick={() => window.open(offerLetters[0]?.url, '_blank')}
-                />
-              </div>
+            {offerLetters.length > 0 ? (
+              <Row>
+                {offerLetters.map((letter, index) => (
+                  <Col md={6} lg={4} key={index} className="mb-3">
+                    <Card className="h-100">
+                      {thumbnails[letter.url] ? (
+                        <Card.Img 
+                          variant="top" 
+                          src={thumbnails[letter.url]} 
+                          alt="Offer Letter Thumbnail" 
+                          style={{ maxHeight: 250, objectFit: 'cover', objectPosition : 'top' }}
+                        />
+                      ) : (
+                        <div className="d-flex align-items-center justify-content-center" style={{ height: 250 }}>
+                          <Spinner animation="border" />
+                        </div>
+                      )}
+                      <Card.Body className="d-flex flex-column">
+                        <Card.Title className="text-truncate">{letter.name}</Card.Title>
+                        <div className="mt-auto d-flex justify-content-between">
+                          <Button
+                            variant="outline-secondary"
+                            size="sm"
+                            onClick={() => window.open(letter.url, '_blank')}
+                          >
+                            <FaEye className="me-1" /> View
+                          </Button>
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            onClick={() => {
+                              const a = document.createElement("a");
+                              a.href = letter.url;
+                              a.download = letter.name;
+                              document.body.appendChild(a);
+                              a.click();
+                              document.body.removeChild(a);
+                            }}
+                          >
+                            <MdOutlineFileDownload className="me-1" /> Download
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
             ) : (
-              <div className="text-center py-5">
-                <FaFileAlt size={48} className="text-muted mb-3" />
-                <p>Your offer letter is ready. You can see within 1 hour</p>
-              </div>
+              <p>No offer letter available yet.</p>
             )}
           </Card.Body>
         </Card>
       )}
+
 
       <style jsx global>{`
         .success-icon-container {

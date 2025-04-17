@@ -53,11 +53,20 @@ function OfferLetterPage() {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [thumbnail, setThumbnail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [thumbnails, setThumbnails] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
+    // useEffect(() => {
+    //   if (offerLetters[0]?.url) {
+    //     generateThumbnail(offerLetters[0]?.url);
+    //   }
+    // }, [offerLetters]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "OfferLetterPage.useEffect": ()=>{
-            if (offerLetters[0]?.url) {
-                generateThumbnail(offerLetters[0]?.url);
-            }
+            offerLetters.forEach({
+                "OfferLetterPage.useEffect": (letter)=>{
+                    if (!thumbnails[letter.url]) {
+                        generateThumbnails(letter.url);
+                    }
+                }
+            }["OfferLetterPage.useEffect"]);
         }
     }["OfferLetterPage.useEffect"], [
         offerLetters
@@ -271,14 +280,14 @@ function OfferLetterPage() {
                         children: "Application Required"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 282,
+                        lineNumber: 290,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: "You need to submit an application before you can generate an offer letter. Please go to the Applications page to submit your application first."
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 283,
+                        lineNumber: 291,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -289,23 +298,23 @@ function OfferLetterPage() {
                             children: "Go to Applications"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                            lineNumber: 288,
+                            lineNumber: 296,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 287,
+                        lineNumber: 295,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                lineNumber: 281,
+                lineNumber: 289,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-            lineNumber: 280,
+            lineNumber: 288,
             columnNumber: 7
         }, this);
     }
@@ -322,14 +331,14 @@ function OfferLetterPage() {
                                 className: "me-2"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                lineNumber: 304,
+                                lineNumber: 312,
                                 columnNumber: 11
                             }, this),
                             "Offer Letter Generation"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 303,
+                        lineNumber: 311,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -337,13 +346,13 @@ function OfferLetterPage() {
                         children: "Generate your offer letter to proceed with your application"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 307,
+                        lineNumber: 315,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                lineNumber: 302,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             showSuccessMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Alert$3e$__["Alert"], {
@@ -355,7 +364,7 @@ function OfferLetterPage() {
                         children: "Success!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 318,
+                        lineNumber: 326,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -363,13 +372,13 @@ function OfferLetterPage() {
                         children: "Your offer letter has been successfully generated. You can download it or proceed to payment."
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 319,
+                        lineNumber: 327,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                lineNumber: 313,
+                lineNumber: 321,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Row$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Row$3e$__["Row"], {
@@ -386,12 +395,12 @@ function OfferLetterPage() {
                                         children: "Generate Offer Letter"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 329,
+                                        lineNumber: 337,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 328,
+                                    lineNumber: 336,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
@@ -408,12 +417,12 @@ function OfferLetterPage() {
                                                             size: 40
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 336,
+                                                            lineNumber: 344,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 343,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -421,7 +430,7 @@ function OfferLetterPage() {
                                                         children: "Offer Letter Generated!"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 346,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -429,13 +438,13 @@ function OfferLetterPage() {
                                                         children: "Your offer letter has been successfully generated. You can download it or proceed to payment."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 347,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 334,
+                                                lineNumber: 342,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -450,24 +459,24 @@ function OfferLetterPage() {
                                                             className: "jsx-ccc5de830c3b39c7" + " " + "ms-2 bi bi-arrow-right"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 351,
+                                                            lineNumber: 359,
                                                             columnNumber: 43
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 346,
+                                                    lineNumber: 354,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 344,
+                                                lineNumber: 352,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 333,
+                                        lineNumber: 341,
                                         columnNumber: 17
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"], {
                                         children: [
@@ -482,7 +491,7 @@ function OfferLetterPage() {
                                                                     children: "Full Name"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 360,
+                                                                    lineNumber: 368,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Control, {
@@ -493,18 +502,18 @@ function OfferLetterPage() {
                                                                     required: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 361,
+                                                                    lineNumber: 369,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 359,
+                                                            lineNumber: 367,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 358,
+                                                        lineNumber: 366,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Col$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Col$3e$__["Col"], {
@@ -516,7 +525,7 @@ function OfferLetterPage() {
                                                                     children: "Phone Number"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 372,
+                                                                    lineNumber: 380,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Control, {
@@ -527,24 +536,24 @@ function OfferLetterPage() {
                                                                     required: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 373,
+                                                                    lineNumber: 381,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 371,
+                                                            lineNumber: 379,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 370,
+                                                        lineNumber: 378,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 357,
+                                                lineNumber: 365,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Row$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Row$3e$__["Row"], {
@@ -558,7 +567,7 @@ function OfferLetterPage() {
                                                                     children: "Program"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 398,
+                                                                    lineNumber: 406,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Control, {
@@ -569,18 +578,18 @@ function OfferLetterPage() {
                                                                     disabled: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 399,
+                                                                    lineNumber: 407,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 397,
+                                                            lineNumber: 405,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 404,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Col$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Col$3e$__["Col"], {
@@ -592,7 +601,7 @@ function OfferLetterPage() {
                                                                     children: "University"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 410,
+                                                                    lineNumber: 418,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Control, {
@@ -603,24 +612,24 @@ function OfferLetterPage() {
                                                                     disabled: true
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                    lineNumber: 411,
+                                                                    lineNumber: 419,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 409,
+                                                            lineNumber: 417,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 408,
+                                                        lineNumber: 416,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 403,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Group, {
@@ -630,7 +639,7 @@ function OfferLetterPage() {
                                                         children: "Start Date"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 423,
+                                                        lineNumber: 431,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Form$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Form$3e$__["Form"].Control, {
@@ -641,13 +650,13 @@ function OfferLetterPage() {
                                                         disabled: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                        lineNumber: 424,
+                                                        lineNumber: 432,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 422,
+                                                lineNumber: 430,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -668,7 +677,7 @@ function OfferLetterPage() {
                                                                 className: "me-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                                lineNumber: 442,
+                                                                lineNumber: 450,
                                                                 columnNumber: 27
                                                             }, this),
                                                             "Generating Offer Letter..."
@@ -678,34 +687,34 @@ function OfferLetterPage() {
                                                     }, void 0, false)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 434,
+                                                    lineNumber: 442,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 433,
+                                                lineNumber: 441,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 356,
+                                        lineNumber: 364,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 339,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                            lineNumber: 327,
+                            lineNumber: 335,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 326,
+                        lineNumber: 334,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Col$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Col$3e$__["Col"], {
@@ -720,12 +729,12 @@ function OfferLetterPage() {
                                         children: "Information"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 466,
+                                        lineNumber: 474,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 465,
+                                    lineNumber: 473,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
@@ -735,7 +744,7 @@ function OfferLetterPage() {
                                             children: "The offer letter contains important information about your admission to the program."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                            lineNumber: 469,
+                                            lineNumber: 477,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -746,7 +755,7 @@ function OfferLetterPage() {
                                                     children: "Confirmation of your acceptance"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 471,
+                                                    lineNumber: 479,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -754,7 +763,7 @@ function OfferLetterPage() {
                                                     children: "Program details and duration"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 472,
+                                                    lineNumber: 480,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -762,7 +771,7 @@ function OfferLetterPage() {
                                                     children: "Tuition fees and payment information"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 473,
+                                                    lineNumber: 481,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -770,7 +779,7 @@ function OfferLetterPage() {
                                                     children: "Important dates and deadlines"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 474,
+                                                    lineNumber: 482,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -778,13 +787,13 @@ function OfferLetterPage() {
                                                     children: "Required documentation"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 475,
+                                                    lineNumber: 483,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                            lineNumber: 470,
+                                            lineNumber: 478,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -798,47 +807,47 @@ function OfferLetterPage() {
                                                             className: "me-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                            lineNumber: 480,
+                                                            lineNumber: 488,
                                                             columnNumber: 21
                                                         }, this),
                                                         "A copy of your offer letter will also be sent to your registered email address."
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                    lineNumber: 479,
+                                                    lineNumber: 487,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 478,
+                                                lineNumber: 486,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                            lineNumber: 477,
+                                            lineNumber: 485,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 468,
+                                    lineNumber: 476,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                            lineNumber: 464,
+                            lineNumber: 472,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 463,
+                        lineNumber: 471,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                lineNumber: 325,
+                lineNumber: 333,
                 columnNumber: 7
             }, this),
             (offerLetterGenerated || offerLetters.length > 0) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"], {
@@ -846,120 +855,161 @@ function OfferLetterPage() {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Header, {
                         className: "bg-light d-flex justify-content-between align-items-center",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h5", {
-                                className: "jsx-ccc5de830c3b39c7" + " " + "mb-0",
-                                children: "Your Offer Letter"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                lineNumber: 494,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-ccc5de830c3b39c7",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
-                                        variant: "outline-primary",
-                                        size: "sm",
-                                        className: "me-2",
-                                        onClick: handleDownloadOfferLetter,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdOutlineFileDownload"], {
-                                                className: "me-1"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 502,
-                                                columnNumber: 17
-                                            }, this),
-                                            " Download"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 496,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
-                                        variant: "outline-secondary",
-                                        size: "sm",
-                                        onClick: ()=>window.open(offerLetters[0]?.url, '_blank'),
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEye"], {
-                                                className: "me-1"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                                lineNumber: 509,
-                                                columnNumber: 17
-                                            }, this),
-                                            " View Full"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                        lineNumber: 504,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                lineNumber: 495,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h5", {
+                            className: "jsx-ccc5de830c3b39c7" + " " + "mb-0",
+                            children: "Your Offer Letter"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                            lineNumber: 502,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 493,
+                        lineNumber: 501,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
-                        children: thumbnail ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "jsx-ccc5de830c3b39c7" + " " + "pdf-thumbnail-container",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: thumbnail,
-                                alt: "Offer Letter Preview",
-                                onClick: ()=>window.open(offerLetters[0]?.url, '_blank'),
-                                className: "jsx-ccc5de830c3b39c7" + " " + "pdf-thumbnail img-fluid"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                lineNumber: 516,
-                                columnNumber: 17
-                            }, this)
+                        children: offerLetters.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Row$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Row$3e$__["Row"], {
+                            children: offerLetters.map((letter, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Col$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Col$3e$__["Col"], {
+                                    md: 6,
+                                    lg: 4,
+                                    className: "mb-3",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"], {
+                                        className: "h-100",
+                                        children: [
+                                            thumbnails[letter.url] ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Img, {
+                                                variant: "top",
+                                                src: thumbnails[letter.url],
+                                                alt: "Offer Letter Thumbnail",
+                                                style: {
+                                                    maxHeight: 250,
+                                                    objectFit: 'cover',
+                                                    objectPosition: 'top'
+                                                }
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                lineNumber: 511,
+                                                columnNumber: 25
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                style: {
+                                                    height: 250
+                                                },
+                                                className: "jsx-ccc5de830c3b39c7" + " " + "d-flex align-items-center justify-content-center",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Spinner$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Spinner$3e$__["Spinner"], {
+                                                    animation: "border"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                    lineNumber: 519,
+                                                    columnNumber: 27
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                lineNumber: 518,
+                                                columnNumber: 25
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
+                                                className: "d-flex flex-column",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Title, {
+                                                        className: "text-truncate",
+                                                        children: letter.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                        lineNumber: 523,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "jsx-ccc5de830c3b39c7" + " " + "mt-auto d-flex justify-content-between",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
+                                                                variant: "outline-secondary",
+                                                                size: "sm",
+                                                                onClick: ()=>window.open(letter.url, '_blank'),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaEye"], {
+                                                                        className: "me-1"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                                        lineNumber: 530,
+                                                                        columnNumber: 29
+                                                                    }, this),
+                                                                    " View"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                                lineNumber: 525,
+                                                                columnNumber: 27
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
+                                                                variant: "outline-success",
+                                                                size: "sm",
+                                                                onClick: ()=>{
+                                                                    const a = document.createElement("a");
+                                                                    a.href = letter.url;
+                                                                    a.download = letter.name;
+                                                                    document.body.appendChild(a);
+                                                                    a.click();
+                                                                    document.body.removeChild(a);
+                                                                },
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdOutlineFileDownload"], {
+                                                                        className: "me-1"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                                        lineNumber: 544,
+                                                                        columnNumber: 29
+                                                                    }, this),
+                                                                    " Download"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                                lineNumber: 532,
+                                                                columnNumber: 27
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                        lineNumber: 524,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                                lineNumber: 522,
+                                                columnNumber: 23
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                        lineNumber: 509,
+                                        columnNumber: 21
+                                    }, this)
+                                }, index, false, {
+                                    fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
+                                    lineNumber: 508,
+                                    columnNumber: 19
+                                }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                            lineNumber: 515,
+                            lineNumber: 506,
                             columnNumber: 15
-                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "jsx-ccc5de830c3b39c7" + " " + "text-center py-5",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaFileAlt"], {
-                                    size: 48,
-                                    className: "text-muted mb-3"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 525,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "jsx-ccc5de830c3b39c7",
-                                    children: "Your offer letter is ready. You can see within 1 hour"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                                    lineNumber: 526,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "jsx-ccc5de830c3b39c7",
+                            children: "No offer letter available yet."
+                        }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                            lineNumber: 524,
+                            lineNumber: 553,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                        lineNumber: 513,
+                        lineNumber: 504,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-                lineNumber: 492,
+                lineNumber: 500,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -969,7 +1019,7 @@ function OfferLetterPage() {
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/(protectedroute)/applications/offerletter/page.tsx",
-        lineNumber: 301,
+        lineNumber: 309,
         columnNumber: 5
     }, this);
 }
