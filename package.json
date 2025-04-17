@@ -16,7 +16,6 @@
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.3",
-    "canvas": "^3.1.0",
     "formidable": "^3.5.2",
     "fs-extra": "^11.3.0",
     "jspdf": "^3.0.1",
