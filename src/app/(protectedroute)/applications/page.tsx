@@ -72,21 +72,80 @@ const Page = () => {
 
     useEffect(() => {
         setLoading(true);
-        const document_verified = localStorage.getItem("document_verified");
-        if (document_verified == "1"){
-            setDverified(true);
-        }else{
-            setDverified(false);
-        }
-        
 
-        const appSubmitted = localStorage.getItem("application_submitted") === "true";
-        const offerGenerated = localStorage.getItem("offerletter") === "true";
-        const paymentDone = localStorage.getItem("payment_completed") === "true";
+
+              const email = JSON.parse(localStorage.getItem("user")).email;
+
+
+              axios
+                .post("/api/documentverify/getStatus", { email })
+                .then((res) => {
+                  console.log("documentverify : ", res);
+                  console.log(
+                    "res.data.status.document_verified_status  :",
+                    res.data.status.document_verified_status
+                  );
+
+                  if (res.data.status.document_verified_status === 1) {
+                    setDverified(true);
+                  } else if (res.data.status.document_verified_status === 0) {
+                    setDverified(false);
+                    // getUserCertificatesInfo();
+                  }
+                })
+                .catch((err) => {
+                  console.log("documentverify : ", err);
+                });
+
+
+      
         
-        setApplicationSubmitted(appSubmitted);
-        setOfferLetterGenerated(offerGenerated);
-        setPaymentCompleted(paymentDone);
+        axios
+              .post("/api/application-submitted/get-status", { email })
+              .then((res) => {
+                console.log("application submitted get Status", res);
+        
+                if (res.data.status.application_submitted == 0) {
+                  setApplicationSubmitted(false);
+                } else if (res.data.status.application_submitted == 1) {
+                  setApplicationSubmitted(true);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                setApplicationSubmitted(false);
+              });
+        
+              axios
+                .post("/api/offer-letter/getStatus", { email })
+                .then((res) => {
+                  console.log("offer letter ", res);
+        
+                  if (res.data[0].offer_letter_status == 0) {
+                    setOfferLetterGenerated(false);
+                  } else if (res.data[0].offer_letter_status == 1) {
+                    setOfferLetterGenerated(true);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setOfferLetterGenerated(false);
+                });
+        axios
+          .post("/api/payment/getpaymentinfo", { email })
+          .then((res) => {
+            console.log(" getpaymentinfo", res);
+
+            if (res.data.data.payment_status == 0) {
+              setPaymentCompleted(false);
+            } else if (res.data.data.payment_status == 1) {
+              setPaymentCompleted(true);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            setPaymentCompleted(false);
+          });
         
         const userString = localStorage.getItem("user");
         if (!userString) {
@@ -149,15 +208,26 @@ const Page = () => {
     }, []);
 
     const handleSubmitApplication = () => {
-        setLoading(true);
+      setLoading(true);
+
+      const email = JSON.parse(localStorage.getItem("user")).email;
+
+      axios
+        .post("/api/application-submitted", { email })
+        .then((res) => {
+          console.log("application_submitted", res.data);
+
+          localStorage.setItem("application_submitted", "true");
+
+          setApplicationSubmitted(true);
+          setShowSuccessMessage(true);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
         
-        // Simulate API call
-        setTimeout(() => {
-            localStorage.setItem('application_submitted', 'true');
-            setApplicationSubmitted(true);
-            setShowSuccessMessage(true);
-            setLoading(false);
-        }, 1500);
+        
     };
     
     const handleNextStep = () => {

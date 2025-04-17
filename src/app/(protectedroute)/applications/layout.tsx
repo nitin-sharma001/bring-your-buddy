@@ -5,13 +5,13 @@ import Header from "@/components/Header";
 export default function ApplicationsLayout({ children }) {
   return (
     <div className="layout">
-      <Sidebar />
+      {/* <Sidebar />
       <div className="main-content">
         <Header />
-        <div className="dashboard-content">
-          {children}  {/* This will render the page content for all routes under /applications */}
-        </div>
-      </div>
+        <div className="dashboard-content"> */}
+          {children}  
+        {/* </div>
+      </div> */}
     </div>
   );
 }

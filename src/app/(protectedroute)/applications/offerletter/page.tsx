@@ -136,11 +136,10 @@ export default function OfferLetterPage() {
     }
   };
 
-  // Add back the fetchOfferletter function
   const fetchOfferletter = () => {
     setLoading(true);
     const userData = localStorage.getItem("user");
-    
+
     if (!userData) {
       toast.error("User data not found");
       setLoading(false);
@@ -173,10 +172,6 @@ export default function OfferLetterPage() {
         setLoading(false);
         toast.error("Error submitting application");
       });
-
-      
-
-
   };
   useEffect(() => {
 

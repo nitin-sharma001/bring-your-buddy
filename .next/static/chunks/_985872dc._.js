@@ -51,18 +51,76 @@ const Page = ()=>{
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Page.useEffect": ()=>{
             setLoading(true);
-            const document_verified = localStorage.getItem("document_verified");
-            if (document_verified == "1") {
-                setDverified(true);
-            } else {
-                setDverified(false);
-            }
-            const appSubmitted = localStorage.getItem("application_submitted") === "true";
-            const offerGenerated = localStorage.getItem("offerletter") === "true";
-            const paymentDone = localStorage.getItem("payment_completed") === "true";
-            setApplicationSubmitted(appSubmitted);
-            setOfferLetterGenerated(offerGenerated);
-            setPaymentCompleted(paymentDone);
+            const email = JSON.parse(localStorage.getItem("user")).email;
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/documentverify/getStatus", {
+                email
+            }).then({
+                "Page.useEffect": (res)=>{
+                    console.log("documentverify : ", res);
+                    console.log("res.data.status.document_verified_status  :", res.data.status.document_verified_status);
+                    if (res.data.status.document_verified_status === 1) {
+                        setDverified(true);
+                    } else if (res.data.status.document_verified_status === 0) {
+                        setDverified(false);
+                    // getUserCertificatesInfo();
+                    }
+                }
+            }["Page.useEffect"]).catch({
+                "Page.useEffect": (err)=>{
+                    console.log("documentverify : ", err);
+                }
+            }["Page.useEffect"]);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/application-submitted/get-status", {
+                email
+            }).then({
+                "Page.useEffect": (res)=>{
+                    console.log("application submitted get Status", res);
+                    if (res.data.status.application_submitted == 0) {
+                        setApplicationSubmitted(false);
+                    } else if (res.data.status.application_submitted == 1) {
+                        setApplicationSubmitted(true);
+                    }
+                }
+            }["Page.useEffect"]).catch({
+                "Page.useEffect": (err)=>{
+                    console.log(err);
+                    setApplicationSubmitted(false);
+                }
+            }["Page.useEffect"]);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/offer-letter/getStatus", {
+                email
+            }).then({
+                "Page.useEffect": (res)=>{
+                    console.log("offer letter ", res);
+                    if (res.data[0].offer_letter_status == 0) {
+                        setOfferLetterGenerated(false);
+                    } else if (res.data[0].offer_letter_status == 1) {
+                        setOfferLetterGenerated(true);
+                    }
+                }
+            }["Page.useEffect"]).catch({
+                "Page.useEffect": (err)=>{
+                    console.log(err);
+                    setOfferLetterGenerated(false);
+                }
+            }["Page.useEffect"]);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/payment/getpaymentinfo", {
+                email
+            }).then({
+                "Page.useEffect": (res)=>{
+                    console.log(" getpaymentinfo", res);
+                    if (res.data.data.payment_status == 0) {
+                        setPaymentCompleted(false);
+                    } else if (res.data.data.payment_status == 1) {
+                        setPaymentCompleted(true);
+                    }
+                }
+            }["Page.useEffect"]).catch({
+                "Page.useEffect": (err)=>{
+                    console.log(err);
+                    setPaymentCompleted(false);
+                }
+            }["Page.useEffect"]);
             const userString = localStorage.getItem("user");
             if (!userString) {
                 setLoading(false);
@@ -121,13 +179,18 @@ const Page = ()=>{
     }["Page.useEffect"], []);
     const handleSubmitApplication = ()=>{
         setLoading(true);
-        // Simulate API call
-        setTimeout(()=>{
-            localStorage.setItem('application_submitted', 'true');
+        const email = JSON.parse(localStorage.getItem("user")).email;
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/application-submitted", {
+            email
+        }).then((res)=>{
+            console.log("application_submitted", res.data);
+            localStorage.setItem("application_submitted", "true");
             setApplicationSubmitted(true);
             setShowSuccessMessage(true);
             setLoading(false);
-        }, 1500);
+        }).catch((err)=>{
+            console.log(err);
+        });
     };
     const handleNextStep = ()=>{
         router.push('/applications/offerletter');
@@ -144,12 +207,12 @@ const Page = ()=>{
                             className: "jsx-17aac2941a48bc63" + " " + "header-icon",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaFileAlt"], {}, void 0, false, {
                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                lineNumber: 172,
+                                lineNumber: 242,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 171,
+                            lineNumber: 241,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -160,7 +223,7 @@ const Page = ()=>{
                                     children: "Application Status"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 245,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -168,24 +231,24 @@ const Page = ()=>{
                                     children: "Manage your application details"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                    lineNumber: 176,
+                                    lineNumber: 246,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 174,
+                            lineNumber: 244,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                    lineNumber: 170,
+                    lineNumber: 240,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                lineNumber: 169,
+                lineNumber: 239,
                 columnNumber: 7
             }, this),
             showSuccessMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Alert$3e$__["Alert"], {
@@ -198,7 +261,7 @@ const Page = ()=>{
                         children: "Application Submitted!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                        lineNumber: 188,
+                        lineNumber: 258,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -206,7 +269,7 @@ const Page = ()=>{
                         children: "Your application has been successfully submitted. You can now proceed to generate your offer letter."
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                        lineNumber: 189,
+                        lineNumber: 259,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -220,24 +283,24 @@ const Page = ()=>{
                                     className: "ms-2"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                    lineNumber: 198,
+                                    lineNumber: 268,
                                     columnNumber: 37
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 194,
+                            lineNumber: 264,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                        lineNumber: 193,
+                        lineNumber: 263,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                lineNumber: 182,
+                lineNumber: 252,
                 columnNumber: 9
             }, this),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -252,12 +315,12 @@ const Page = ()=>{
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 207,
+                            lineNumber: 277,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                        lineNumber: 206,
+                        lineNumber: 276,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -265,13 +328,13 @@ const Page = ()=>{
                         children: "Loading your application details..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                        lineNumber: 209,
+                        lineNumber: 279,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                lineNumber: 205,
+                lineNumber: 275,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "jsx-17aac2941a48bc63" + " " + "content-card-body",
@@ -291,7 +354,7 @@ const Page = ()=>{
                                                 children: "Application Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 287,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Badge$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Badge$3e$__["Badge"], {
@@ -300,13 +363,13 @@ const Page = ()=>{
                                                 children: dverified ? "Verified" : "Pending Verification"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 218,
+                                                lineNumber: 288,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 286,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
@@ -327,14 +390,14 @@ const Page = ()=>{
                                                                             className: ""
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                            lineNumber: 230,
+                                                                            lineNumber: 300,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         " University"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 229,
+                                                                    lineNumber: 299,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -342,13 +405,13 @@ const Page = ()=>{
                                                                     children: university?.name || "Not specified"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 232,
+                                                                    lineNumber: 302,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 228,
+                                                            lineNumber: 298,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -361,14 +424,14 @@ const Page = ()=>{
                                                                             className: ""
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                            lineNumber: 238,
+                                                                            lineNumber: 308,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         " Program"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 237,
+                                                                    lineNumber: 307,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -376,13 +439,13 @@ const Page = ()=>{
                                                                     children: program?.name || "Not specified"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 240,
+                                                                    lineNumber: 310,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 236,
+                                                            lineNumber: 306,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -395,14 +458,14 @@ const Page = ()=>{
                                                                             className: ""
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                            lineNumber: 246,
+                                                                            lineNumber: 316,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         " Start Date"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 245,
+                                                                    lineNumber: 315,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -410,13 +473,13 @@ const Page = ()=>{
                                                                     children: startDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 248,
+                                                                    lineNumber: 318,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 244,
+                                                            lineNumber: 314,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -429,14 +492,14 @@ const Page = ()=>{
                                                                             className: ""
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                            lineNumber: 252,
+                                                                            lineNumber: 322,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         " Fees"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 251,
+                                                                    lineNumber: 321,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -447,13 +510,13 @@ const Page = ()=>{
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 254,
+                                                                    lineNumber: 324,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 250,
+                                                            lineNumber: 320,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -466,14 +529,14 @@ const Page = ()=>{
                                                                             className: ""
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                            lineNumber: 258,
+                                                                            lineNumber: 328,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         " Document Status"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 257,
+                                                                    lineNumber: 327,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -485,14 +548,14 @@ const Page = ()=>{
                                                                                 className: "me-2"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                                lineNumber: 263,
+                                                                                lineNumber: 333,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             " Documents Verified"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 262,
+                                                                        lineNumber: 332,
                                                                         columnNumber: 29
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "jsx-17aac2941a48bc63" + " " + "text-warning w-100 d-flex align-items-center",
@@ -501,36 +564,36 @@ const Page = ()=>{
                                                                                 className: "me-2"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                                lineNumber: 268,
+                                                                                lineNumber: 338,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             " Pending Verification"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 267,
+                                                                        lineNumber: 337,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 260,
+                                                                    lineNumber: 330,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 256,
+                                                            lineNumber: 326,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                    lineNumber: 227,
+                                                    lineNumber: 297,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 296,
                                                 columnNumber: 19
                                             }, this),
                                             !applicationSubmitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -552,7 +615,7 @@ const Page = ()=>{
                                                                     className: "me-2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                    lineNumber: 287,
+                                                                    lineNumber: 357,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 "Submitting..."
@@ -562,7 +625,7 @@ const Page = ()=>{
                                                         }, void 0, false)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 349,
                                                         columnNumber: 23
                                                     }, this),
                                                     !dverified && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -572,18 +635,18 @@ const Page = ()=>{
                                                             children: "Your documents need to be verified before submitting"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 303,
+                                                            lineNumber: 373,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 302,
+                                                        lineNumber: 372,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 278,
+                                                lineNumber: 348,
                                                 columnNumber: 21
                                             }, this),
                                             applicationSubmitted && !offerLetterGenerated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,18 +660,18 @@ const Page = ()=>{
                                                             className: "ms-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 317,
+                                                            lineNumber: 387,
                                                             columnNumber: 47
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 383,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 312,
+                                                lineNumber: 382,
                                                 columnNumber: 21
                                             }, this),
                                             offerLetterGenerated && !paymentCompleted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -623,18 +686,18 @@ const Page = ()=>{
                                                             className: "ms-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 329,
+                                                            lineNumber: 399,
                                                             columnNumber: 45
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                    lineNumber: 324,
+                                                    lineNumber: 394,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 323,
+                                                lineNumber: 393,
                                                 columnNumber: 21
                                             }, this),
                                             paymentCompleted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -646,36 +709,36 @@ const Page = ()=>{
                                                             className: "me-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                            lineNumber: 337,
+                                                            lineNumber: 407,
                                                             columnNumber: 25
                                                         }, this),
                                                         "Your application process is complete. Thank you!"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                    lineNumber: 336,
+                                                    lineNumber: 406,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 335,
+                                                lineNumber: 405,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 295,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                lineNumber: 215,
+                                lineNumber: 285,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 214,
+                            lineNumber: 284,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Col$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Col$3e$__["Col"], {
@@ -690,12 +753,12 @@ const Page = ()=>{
                                             children: "Application Progress"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                            lineNumber: 349,
+                                            lineNumber: 419,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                        lineNumber: 348,
+                                        lineNumber: 418,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"].Body, {
@@ -712,7 +775,7 @@ const Page = ()=>{
                                                                 children: "Document Verification"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 354,
+                                                                lineNumber: 424,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -720,13 +783,13 @@ const Page = ()=>{
                                                                 children: dverified ? "100%" : "50%"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 355,
+                                                                lineNumber: 425,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 353,
+                                                        lineNumber: 423,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$ProgressBar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ProgressBar$3e$__["ProgressBar"], {
@@ -735,13 +798,13 @@ const Page = ()=>{
                                                         className: "custom-progress"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 357,
+                                                        lineNumber: 427,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 352,
+                                                lineNumber: 422,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -755,7 +818,7 @@ const Page = ()=>{
                                                                 children: "Application Submission"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 366,
+                                                                lineNumber: 436,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -763,13 +826,13 @@ const Page = ()=>{
                                                                 children: applicationSubmitted ? "100%" : "0%"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 367,
+                                                                lineNumber: 437,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 365,
+                                                        lineNumber: 435,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$ProgressBar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ProgressBar$3e$__["ProgressBar"], {
@@ -778,13 +841,13 @@ const Page = ()=>{
                                                         className: "custom-progress"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 439,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 364,
+                                                lineNumber: 434,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -798,7 +861,7 @@ const Page = ()=>{
                                                                 children: "Offer Letter"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 378,
+                                                                lineNumber: 448,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -806,13 +869,13 @@ const Page = ()=>{
                                                                 children: offerLetterGenerated ? "100%" : "0%"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 379,
+                                                                lineNumber: 449,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 377,
+                                                        lineNumber: 447,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$ProgressBar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ProgressBar$3e$__["ProgressBar"], {
@@ -821,13 +884,13 @@ const Page = ()=>{
                                                         className: "custom-progress"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 381,
+                                                        lineNumber: 451,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 376,
+                                                lineNumber: 446,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -841,7 +904,7 @@ const Page = ()=>{
                                                                 children: "Payment"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 390,
+                                                                lineNumber: 460,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -849,13 +912,13 @@ const Page = ()=>{
                                                                 children: paymentCompleted ? "100%" : "0%"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 391,
+                                                                lineNumber: 461,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 389,
+                                                        lineNumber: 459,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$ProgressBar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ProgressBar$3e$__["ProgressBar"], {
@@ -864,13 +927,13 @@ const Page = ()=>{
                                                         className: "custom-progress"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 393,
+                                                        lineNumber: 463,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 388,
+                                                lineNumber: 458,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -881,7 +944,7 @@ const Page = ()=>{
                                                         children: "Application Steps"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 401,
+                                                        lineNumber: 471,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -892,7 +955,7 @@ const Page = ()=>{
                                                                 children: "1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 403,
+                                                                lineNumber: 473,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -903,7 +966,7 @@ const Page = ()=>{
                                                                         children: "Document Verification"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 409,
+                                                                        lineNumber: 479,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -911,19 +974,19 @@ const Page = ()=>{
                                                                         children: dverified ? "Documents verified successfully" : "Your documents are being verified"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 410,
+                                                                        lineNumber: 480,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 408,
+                                                                lineNumber: 478,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 402,
+                                                        lineNumber: 472,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -934,7 +997,7 @@ const Page = ()=>{
                                                                 children: "2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 419,
+                                                                lineNumber: 489,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -945,7 +1008,7 @@ const Page = ()=>{
                                                                         children: "Submit Application"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 425,
+                                                                        lineNumber: 495,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -953,19 +1016,19 @@ const Page = ()=>{
                                                                         children: applicationSubmitted ? "Application submitted successfully" : dverified ? "Ready to submit" : "Waiting for document verification"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 426,
+                                                                        lineNumber: 496,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 424,
+                                                                lineNumber: 494,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 418,
+                                                        lineNumber: 488,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -976,7 +1039,7 @@ const Page = ()=>{
                                                                 children: "3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 437,
+                                                                lineNumber: 507,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -987,7 +1050,7 @@ const Page = ()=>{
                                                                         children: "Generate Offer Letter"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 443,
+                                                                        lineNumber: 513,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -995,19 +1058,19 @@ const Page = ()=>{
                                                                         children: offerLetterGenerated ? "Offer letter generated successfully" : applicationSubmitted ? "Ready to generate" : "Waiting for application submission"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 444,
+                                                                        lineNumber: 514,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 442,
+                                                                lineNumber: 512,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 436,
+                                                        lineNumber: 506,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1018,7 +1081,7 @@ const Page = ()=>{
                                                                 children: "4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 455,
+                                                                lineNumber: 525,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1029,7 +1092,7 @@ const Page = ()=>{
                                                                         children: "Complete Payment"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 461,
+                                                                        lineNumber: 531,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1037,53 +1100,53 @@ const Page = ()=>{
                                                                         children: paymentCompleted ? "Payment completed successfully" : offerLetterGenerated ? "Ready for payment" : "Waiting for offer letter"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                        lineNumber: 462,
+                                                                        lineNumber: 532,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                                lineNumber: 460,
+                                                                lineNumber: 530,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                        lineNumber: 454,
+                                                        lineNumber: 524,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                                lineNumber: 400,
+                                                lineNumber: 470,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 421,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                                lineNumber: 347,
+                                lineNumber: 417,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                            lineNumber: 346,
+                            lineNumber: 416,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                    lineNumber: 213,
+                    lineNumber: 283,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-                lineNumber: 212,
+                lineNumber: 282,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1093,7 +1156,7 @@ const Page = ()=>{
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/(protectedroute)/applications/page.tsx",
-        lineNumber: 168,
+        lineNumber: 238,
         columnNumber: 5
     }, this);
 };

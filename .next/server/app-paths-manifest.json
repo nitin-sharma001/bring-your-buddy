@@ -1,8 +1,15 @@
 {
+  "/(protectedroute)/airport/page": "app/(protectedroute)/airport/page.js",
   "/(protectedroute)/applications/offerletter/page": "app/(protectedroute)/applications/offerletter/page.js",
+  "/(protectedroute)/applications/page": "app/(protectedroute)/applications/page.js",
+  "/(protectedroute)/applications/payment/page": "app/(protectedroute)/applications/payment/page.js",
   "/(protectedroute)/checklist/page": "app/(protectedroute)/checklist/page.js",
   "/(protectedroute)/dashboard/page": "app/(protectedroute)/dashboard/page.js",
   "/(protectedroute)/documents/page": "app/(protectedroute)/documents/page.js",
+  "/(protectedroute)/embassy/page": "app/(protectedroute)/embassy/page.js",
+  "/(protectedroute)/payment/page": "app/(protectedroute)/payment/page.js",
+  "/(protectedroute)/profile/page": "app/(protectedroute)/profile/page.js",
+  "/(protectedroute)/programs-university/page": "app/(protectedroute)/programs-university/page.js",
   "/api/application-submitted/get-status/route": "app/api/application-submitted/get-status/route.js",
   "/api/appointment-notification/getreminder/route": "app/api/appointment-notification/getreminder/route.js",
   "/api/documentverify/getStatus/route": "app/api/documentverify/getStatus/route.js",
@@ -12,7 +19,9 @@
   "/api/offer-letter/getofferletterbyemail/route": "app/api/offer-letter/getofferletterbyemail/route.js",
   "/api/payment/getpaymentinfo/route": "app/api/payment/getpaymentinfo/route.js",
   "/api/programs/getprogrambyid/route": "app/api/programs/getprogrambyid/route.js",
+  "/api/programs/route": "app/api/programs/route.js",
   "/api/send-documents/getdocumentsbyemail/route": "app/api/send-documents/getdocumentsbyemail/route.js",
   "/api/universities/getuniversitybyid/route": "app/api/universities/getuniversitybyid/route.js",
+  "/api/universities/route": "app/api/universities/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
 }
