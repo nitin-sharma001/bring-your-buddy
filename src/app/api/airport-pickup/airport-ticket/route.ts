@@ -75,10 +75,20 @@ export async function POST(req: Request) {
 
      const [prev] = await db.query("select * from airport_pickup where user_id = ?" , [user.id])
 
-        console.log("prev[0] : ",prev[0]);
+        console.log("prev : ", prev);
         
+        // Define a type for the record
+        interface AirportPickupRecord {
+          user_id: string | number;
+          [key: string]: any;
+        }
 
-        if(prev[0]?.user_id === user.id){
+        // Safely type the record
+        const prevRecord = Array.isArray(prev) && prev.length > 0 
+          ? prev[0] as AirportPickupRecord
+          : null;
+
+        if(prevRecord && prevRecord.user_id === user.id){
         const [reminders] = await db.query(
           "UPDATE tickets SET departure_datetime = ?, departure_port = ?, destination_port = ?, destination_datetime = ?, ticket_document = ? WHERE user_id = ?;",
           [departure_datetime,

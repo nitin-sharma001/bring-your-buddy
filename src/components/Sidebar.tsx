@@ -46,19 +46,14 @@ const Sidebar = () => {
   } :any= useUser();
 
   useEffect(() => {
-    // Check if we're on mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 992);
-      if (window.innerWidth < 992) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
     };
-
-
+    
+    // Check if mobile on initial load
     checkMobile();
-
+    
+    // Add resize listener
     window.addEventListener("resize", checkMobile);
 
     // Get user data
@@ -67,66 +62,15 @@ const Sidebar = () => {
       setUser(JSON.parse(userData));
     }
 
-    // Check application status from localStorage
-
-    const email = JSON.parse(localStorage.getItem("user")).email;
-
-    axios
-      .post("/api/offer-letter/getStatus", { email })
-      .then((res) => {
-        console.log("offer letter ", res);
-
-        if (res.data[0].offer_letter_status == 0) {
-          setHasGeneratedOffer(false);
-          setOfferLetterStatus(false);
-        } else if (res.data[0].offer_letter_status == 1) {
-          setOfferLetterStatus(true);
-          setHasGeneratedOffer(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setHasGeneratedOffer(false);
-      });
-
-    axios
-      .post("/api/payment/getpaymentinfo", { email })
-      .then((res) => {
-        console.log(" getpaymentinfo", res);
-
-        if (res.data.data.payment_status == 0) {
-          setHasCompletedPayment(false);
-          setPaymentCompletedStatus(false);
-        } else if (res.data.data.payment_status == 1) {
-          setPaymentCompletedStatus(true);
-          setHasCompletedPayment(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setHasCompletedPayment(false);
-      });
+    // Fetch status from localStorage or your context
+    const hasSubmittedApp = localStorage.getItem("application_submitted") === "true" || false;
+    const hasGeneratedOffer = localStorage.getItem("offerletter") === "true" || false;
+    const hasCompletedPayment = localStorage.getItem("payment_completed") === "true" || false;
     
-    // setHasSubmittedApp(hasApp);
-
-    axios
-      .post("/api/application-submitted/get-status", { email })
-      .then((res) => {
-        console.log("application submitted get Status", res);
-
-        if (res.data.status.application_submitted == 0) {
-          setHasSubmittedApp(false);
-          setAppSubmitted(false);
-        } else if (res.data.status.application_submitted == 1) {
-          setAppSubmitted(true);
-          setHasSubmittedApp(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setHasSubmittedApp(false);
-      });
-
+    setAppSubmitted(hasSubmittedApp);
+    setOfferLetterStatus(hasGeneratedOffer);
+    setPaymentCompletedStatus(hasCompletedPayment);
+    
     // Set active app step based on status
     if (hasCompletedPayment) {
       setActiveAppStep(3);
@@ -140,7 +84,7 @@ const Sidebar = () => {
 
     // Cleanup
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [hasCompletedPayment, hasGeneratedOffer, hasSubmittedApp, setAppSubmitted, setOfferLetterStatus, setPaymentCompletedStatus]);
 
   useEffect(() => {
     // This effect will run whenever pathname changes

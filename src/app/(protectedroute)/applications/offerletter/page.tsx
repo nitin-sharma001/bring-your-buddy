@@ -106,6 +106,7 @@ export default function OfferLetterPage() {
           setHasSubmittedApp(true);
         }
       })
+      
       .catch((err) => {
         console.log(err);
         setHasSubmittedApp(false);

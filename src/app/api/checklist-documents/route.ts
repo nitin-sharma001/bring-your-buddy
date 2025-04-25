@@ -1,6 +1,3 @@
-
-
-
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import path from "path";
@@ -79,7 +76,21 @@ export async function POST(req: NextRequest) {
     // Get user and document info
     const [existingDocs] = await db.query("SELECT * FROM documents WHERE user_id = ?", [user_id]);
     const [usertable] = await db.query("SELECT * FROM users WHERE id = ?", [user_id]);
-    const email = usertable[0].email;
+    
+    // Handle the type safely
+    interface User {
+      email: string;
+      [key: string]: any;
+    }
+    
+    const userArray = Array.isArray(usertable) ? usertable : [];
+    const user = userArray.length > 0 ? userArray[0] as User : null;
+    
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+    
+    const email = user.email;
 
     let result;
 

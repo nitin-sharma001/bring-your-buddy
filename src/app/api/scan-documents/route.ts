@@ -1,6 +1,7 @@
 import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { RowDataPacket } from "mysql2";
 
 export const config = {
   api: { bodyParser: false },
@@ -11,23 +12,25 @@ async function processFile(filePath: string) {
   try {
     const base64File = fs.readFileSync(filePath, { encoding: "base64" });
 
+    const params = new URLSearchParams({
+      base64image: `data:application/pdf;base64,${base64File}`,
+      isOverlayRequired: "true",
+      language: "eng",
+    });
+
     const ocrResponse = await fetch("https://api.ocr.space/parse/image", {
       method: "POST",
       headers: {
-        apikey: process.env.OCR_API_KEY,
+        apikey: process.env.OCR_API_KEY || "",
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams({
-        base64image: `data:application/pdf;base64,${base64File}`,
-        isOverlayRequired: "true",
-        language: "eng",
-      }),
+      body: params.toString(),
     });
 
     const result = await ocrResponse.json();
 
     if (!result || !result.ParsedResults) {
-      return NextResponse.json({status:405, error: "OCR API failed", isMarksheet: false });
+      return { error: "OCR API failed", isMarksheet: false };
     }
 
     const extractedText = result.ParsedResults[0]?.ParsedText || "";
@@ -49,7 +52,7 @@ export async function POST(req: NextRequest) {
   try {
     const { email } = await req.json();
 
-    const [user] = await db.query("SELECT * FROM users WHERE email = ?", [
+    const [user] = await db.query<RowDataPacket[]>("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
 

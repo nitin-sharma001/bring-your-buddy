@@ -23,8 +23,8 @@ const AnimatedCounter = ({ target, duration, prefix = "", suffix = "" } : any) =
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated) {
           setHasAnimated(true);
-          let startTime;
-          const step = (timestamp) => {
+          let startTime: number;
+          const step = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
             setCount(Math.floor(progress * target));
@@ -57,7 +57,7 @@ const AnimatedCounter = ({ target, duration, prefix = "", suffix = "" } : any) =
 };
 
 // Rating Stars Component
-const RatingStars = ({ rating }) => {
+const RatingStars = ({ rating }: { rating: number }) => {
   const stars = [];
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
@@ -84,20 +84,20 @@ const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const testimonialRef = useRef(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{[key: string]: string}>({
     name: '',
     email: '',
     phone: '',
     coursePreference: '',
     message: ''
   });
-  const [searchFormData, setSearchFormData] = useState({
+  const [searchFormData, setSearchFormData] = useState<{[key: string]: string}>({
     course: '',
     location: '',
     type: '',
     fees: ''
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState<{[key: string]: string | undefined}>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -125,7 +125,7 @@ const LandingPage = () => {
   }, []);
 
   // Navigation click handler with smooth scroll
-  const handleNavClick = (href) => {
+  const handleNavClick = (href: string) => {
     if (href === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -140,7 +140,7 @@ const LandingPage = () => {
   };
 
   // Form handlers
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     const fieldName = id.replace('Input', '').replace('Preference', '').replace('Select', '');
     
@@ -168,7 +168,7 @@ const LandingPage = () => {
 
   // Form validation
   const validateForm = () => {
-    const errors = {};
+    const errors: {[key: string]: string} = {};
     let isValid = true;
     
     // Name validation
@@ -208,7 +208,7 @@ const LandingPage = () => {
   };
 
   // Form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (validateForm()) {
@@ -235,7 +235,7 @@ const LandingPage = () => {
   };
 
   // Search form submission
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Search form submitted:', searchFormData);
     // Here you'd typically handle the search form submission, like redirecting to search results

@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/userContext";
+import { getUserProperty } from "@/utils/localStorage";
 
 
 
@@ -71,68 +72,68 @@ export default function PaymentPage() {
           } : any = useUser();
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    setLoading(true);
+    
+    const email = getUserProperty<any, 'email'>('email');
+    if (!email) {
+      toast.error("User email not found");
+      setLoading(false);
+      return;
+    }
 
-      const email = JSON.parse(localStorage.getItem("user")).email;
-
-      axios
-        .post("/api/offer-letter/getStatus", { email })
-        .then((res) => {
-          console.log("offer letter ", res);
-
-          if (res.data[0].offer_letter_status == 0) {
-            setHasOfferLetter(false);
-          } else if (res.data[0].offer_letter_status == 1) {
-            setHasOfferLetter(true);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setHasOfferLetter(false);
-        });
-
-      axios
-      .post("/api/payment/getpaymentinfo", { email })
+    axios
+      .post("/api/offer-letter/getStatus", { email })
       .then((res) => {
-        console.log(" getpaymentinfo", res);
+        console.log("offer letter ", res);
 
-        if (res.data.data.payment_status == 0) {
-          setPaymentCompleted(false);
-        } else if (res.data.data.payment_status == 1) {
-          setPaymentCompleted(true);
+        if (res.data[0].offer_letter_status == 0) {
+          setHasOfferLetter(false);
+        } else if (res.data[0].offer_letter_status == 1) {
+          setHasOfferLetter(true);
         }
       })
       .catch((err) => {
         console.log(err);
-        setPaymentCompleted(false);
+        setHasOfferLetter(false);
       });
 
-      const offerDataString = localStorage.getItem("offer_letter_data");
-      if (offerDataString) {
-        try {
-          const offerData = JSON.parse(offerDataString);
-          setOfferLetterData(offerData);
-        } catch (error) {
-          console.error("Error parsing offer letter data:", error);
-        }
+    axios
+    .post("/api/payment/getpaymentinfo", { email })
+    .then((res) => {
+      console.log(" getpaymentinfo", res);
+
+      if (res.data.data.payment_status == 0) {
+        setPaymentCompleted(false);
+      } else if (res.data.data.payment_status == 1) {
+        setPaymentCompleted(true);
       }
+    })
+    .catch((err) => {
+      console.log(err);
+      setPaymentCompleted(false);
+    });
 
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        setUser(JSON.parse(userData));
+    const offerDataString = localStorage.getItem("offer_letter_data");
+    if (offerDataString) {
+      try {
+        const offerData = JSON.parse(offerDataString);
+        setOfferLetterData(offerData);
+      } catch (error) {
+        console.error("Error parsing offer letter data:", error);
       }
+    }
 
-      setLoading(false);
-    };
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
 
-    fetchData();
+    setLoading(false);
 
-    const program_name1 = localStorage.getItem("program_name");
+    const program_name1 = localStorage.getItem("program_name") || "";
     setProgramName(program_name1);
 
-    const university_name1 = localStorage.getItem("university_name");
-
+    const university_name1 = localStorage.getItem("university_name") || "";
     setUniversityName(university_name1);
   }, []);
 
@@ -177,13 +178,13 @@ export default function PaymentPage() {
         modal: {
           confirm_close: true,
         },
-        handler: function (response) {
+        handler: function (response: any) {
           handlePaymentSuccess(response);
         },
       };
 
       const rzp1 = new window.Razorpay(options);
-      rzp1.on("payment.failed", function (response) {
+      rzp1.on("payment.failed", function (response: any) {
         toast.error("Payment failed. Please try again.");
         console.log(response.error);
       });
@@ -197,7 +198,7 @@ export default function PaymentPage() {
     }
   };
 
-  const handlePaymentSuccess = (response) => {
+  const handlePaymentSuccess = (response : any) => {
     axios
       .post("/api/payment", { email: user.email })
       .then((res) => {
@@ -312,7 +313,7 @@ export default function PaymentPage() {
                           </tr>
                           <tr>
                             <th>Start Date</th>
-                            <td>{"03-04-2025" || "Not specified"}</td>
+                            <td>{"03-04-2025"}</td>
                           </tr>
                           <tr>
                             <th>Application Fee</th>

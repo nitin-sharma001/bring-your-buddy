@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import nodemailer from "nodemailer";
+import { RowDataPacket } from "mysql2";
 
 export async function POST(req: Request) {
   try {
@@ -8,9 +9,9 @@ export async function POST(req: Request) {
 
     console.log("embassy_email : ", embassy_email);
 
-    const [users] = (await db.query("SELECT * FROM users WHERE email = ?", [
+    const [users] = await db.query<RowDataPacket[]>("SELECT * FROM users WHERE email = ?", [
       email,
-    ])) as any[];
+    ]);
 
     if (!users.length) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -20,39 +21,39 @@ export async function POST(req: Request) {
 
     console.log("user : ", user);
 
-    const [country_id] = await db.query(
+    const [country_id] = await db.query<RowDataPacket[]>(
       "SELECT * FROM countries WHERE id = ?",
       [user.country_id]
     );
 
-    const [university_country] = await db.query(
+    const [university_country] = await db.query<RowDataPacket[]>(
       "SELECT * FROM countries WHERE id = ?",
       [user.university_country]
     );
 
-    const [university_id] = await db.query(
+    const [university_id] = await db.query<RowDataPacket[]>(
       "SELECT * FROM universities WHERE id = ?",
       [user.university_id]
     );
 
-    const [program_id] = await db.query(
+    const [program_id] = await db.query<RowDataPacket[]>(
       "SELECT * FROM universities WHERE id = ?",
       [user.program_id]
     );
 
-    const [prev] = await db.query("select * from embassy where user_id = ?", [
+    const [prev] = await db.query<RowDataPacket[]>("select * from embassy where user_id = ?", [
       user.id,
     ]);
 
     console.log("prev[0] : ", prev[0]);
 
     if (prev[0]?.user_id === user.id) {
-      const [reminders] = await db.query(
+      const [reminders] = await db.query<RowDataPacket[]>(
         "UPDATE embassy SET embassy_email = ? WHERE user_id = ?;",
         [embassy_email, user.id]
       );
     } else {
-      const [reminders] = await db.query(
+      const [reminders] = await db.query<RowDataPacket[]>(
         "INSERT INTO embassy (embassy_email, user_id) VALUES (?, ?);",
         [embassy_email, user.id]
       );

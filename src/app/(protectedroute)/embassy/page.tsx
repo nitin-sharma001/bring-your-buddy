@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Badge, Button, Col, Form, Row, ProgressBar } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { IoIosCloudUpload } from "react-icons/io";
+import { getUserProperty } from "@/utils/localStorage";
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -43,9 +44,9 @@ const Page = () => {
 
   const [appointemntStatus, setAppointemntStatus] = useState(false);
   const [embassyStatus, setEmbassyStatus] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-
-  const getembassyStatus = async (id) => {
+  const getembassyStatus = async (id : any) => {
     
         const response = await fetch(`/api/embassy/embasy-doc-status?user_id=${id}`);
           const data = await response.json();
@@ -58,8 +59,16 @@ const Page = () => {
   }
 
   useEffect(  () => {
-    const id = JSON.parse(localStorage.getItem("user")).id;
-axios
+    setLoading(true);
+
+    const id = getUserProperty<any, 'id'>('id');
+    if (!id) {
+      toast.error("User ID not found");
+      setLoading(false);
+      return;
+    }
+    
+    axios
         .post("/api/appointment-notification/getreminder", { id })
         .then((res) => {
 

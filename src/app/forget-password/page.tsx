@@ -17,7 +17,7 @@ export default function Login() {
   });
 
 
-  const validateEmail = (email) => {
+  const validateEmail = (email: any) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function Login() {
 
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("formData : ", formData);
 

@@ -19,10 +19,23 @@ import { Button, Card, Badge, ProgressBar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Container, Spinner, Alert } from "react-bootstrap";
 import { useUser } from "@/context/userContext";
+import { getUser, getUserProperty } from "@/utils/localStorage";
 
 interface OfferLetter {
   name: string;
   url: string;
+}
+
+interface University {
+  id: string;
+  name: string;
+  [key: string]: any;
+}
+
+interface Program {
+  id: string;
+  name: string;
+  [key: string]: any;
 }
 
 export default function Dashboard() {
@@ -30,8 +43,8 @@ export default function Dashboard() {
   const [documents, setDocuments] = useState<OfferLetter[]>([]);
   const [paymentStatus, setPaymentStatus] = useState(0);
   const [user, setUser] = useState({});
-  const [program, setProgram] = useState(null);
-  const [university, setUniversity] = useState(null);
+  const [program, setProgram] = useState<Program | null>(null);
+  const [university, setUniversity] = useState<University | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -56,14 +69,15 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoading(true);
-    const email = JSON.parse(localStorage.getItem("user"))?.email;
-    if (!email) {
+    const userObj = getUser() as any;
+    const user_id = userObj?.email;
+    if (!user_id) {
       router.push("/login");
       return;
     }
 
     axios
-      .post("/api/documentverify/iseligible/getStatus", { email })
+      .post("/api/documentverify/iseligible/getStatus", { email: user_id })
       .then((res) => {
         console.log("is eligible : ", res.data);
         if (res.data.status.is_eligible == 1) {
@@ -73,16 +87,16 @@ export default function Dashboard() {
         }
       });
 
-    const detectStream = async (userResponse, response) => {
+    const detectStream = async (userResponse: any, response: any) => {
       console.log(
         "before detecting data : ",
-        email,
+        user_id,
         userResponse.data.user.program_id
       );
 
       axios
         .post("/api/documentverify/detect-stream", {
-          email: email,
+          email: user_id,
           program_id: userResponse.data.user.program_id,
           text: response.data.twelfth_certificate.text,
         })
@@ -93,7 +107,7 @@ export default function Dashboard() {
             toast.success("You are Eligible for that program !");
 
             axios
-              .post("/api/documentverify/iseligible", { email })
+              .post("/api/documentverify/iseligible", { email: user_id })
               .then((res) => {
                 console.log("is elgible : ", res.data);
                 if (res.data.success == true) {
@@ -105,7 +119,7 @@ export default function Dashboard() {
               .catch((err) => {
                 console.log(err);
               });
-          }else{
+          } else {
             toast.error("You are Not Eligible for that program !");
             setEligible(false);
           }
@@ -113,22 +127,26 @@ export default function Dashboard() {
     };
 
     const getUserCertificatesInfo = async () => {
-      const userResponse = await axios.post("/api/getuserbyemail", { email });
+      const userResponse = await axios.post("/api/getuserbyemail", { email: user_id });
 
       if (userResponse.data.user.bachelor_certificate != null) {
         try {
           axios
-            .post("/api/scan-documents/bachelor-scan", { email })
+            .post("/api/scan-documents/bachelor-scan", { email: user_id })
             .then((res) => {
               console.log("bachelor scan hua ya nahi", res.data);
 
               if(res.data.bachelor_certificate.isBachelorCertificate == true){
                 toast.success("Your Bachelor Certificate is verified successfully");
                 localStorage.setItem("document_verified", "1");
-                const id = JSON.parse(localStorage.getItem("user")).id;
+                const userId = getUserProperty<any, 'id'>('id');
+                if (!userId) {
+                  console.error("User ID not found");
+                  return;
+                }
 
-                axios.post("/api/documentverify", { id }).then((res) => {
-                  console.log("bachleor document verify", res);
+                axios.post("/api/documentverify", { id: userId }).then((res) => {
+                  console.log("bachelor document verify", res);
 
                   setDocumentVerfied(true);
                   
@@ -136,9 +154,9 @@ export default function Dashboard() {
                     "Your all documents Successfully verified !"
                   );
                 }).catch((err) => {console.log(err);
-                })
+                });
                 axios
-                  .post("/api/documentverify/iseligible", { email })
+                  .post("/api/documentverify/iseligible", { email: user_id })
                   .then((res) => {
                     console.log("is elgible : ", res.data);
                     if (res.data.success == true) {
@@ -158,10 +176,14 @@ export default function Dashboard() {
       } else if (userResponse.data.user.bachelor_certificate == null) {
         try {
           const response = await axios.post("/api/scan-documents", {
-            email,
+            email: user_id,
           });
 
-          const id = JSON.parse(localStorage.getItem("user")).id;
+          const userId = getUserProperty<any, 'id'>('id');
+          if (!userId) {
+            console.error("User ID not found");
+            return;
+          }
 
           if (
             response.data.tenth_certificate.isMarksheet &&
@@ -169,7 +191,7 @@ export default function Dashboard() {
             response.data.twelfth_certificate.isMarksheet &&
             response.data.twelfth_certificate.text !== ""
           ) {
-            axios.post("/api/documentverify", { id }).then((res) => {
+            axios.post("/api/documentverify", { id: userId }).then((res) => {
               console.log("hua ya nahi documentverify", res);
 
               setDocumentVerfied(true);
@@ -201,78 +223,62 @@ export default function Dashboard() {
             );
             localStorage.setItem("document_verified", "0");
           }
-
-          if (
-            response.data.twelfth_certificate.isMarksheet &&
-            response.data.twelfth_certificate.text !== ""
-          ) {
-            elgible &&
-               toast.success("Your 12th Certificate is verified successfully");
-            localStorage.setItem("document_verified", "1");
-          } else if (
-            response.data.twelfth_certificate.isMarksheet &&
-            response.data.twelfth_certificate.text == ""
-          ) {
-            toast.error("Please upload your 12th Certificate quality document");
-            localStorage.setItem("document_verified", "0");
-          } else {
-            toast.error(
-              "Please upload your 12th Certificate original document"
-            );
-            localStorage.setItem("document_verified", "0");
-          }
-        } catch (error) {
-          console.error("Error verifying documents:", error);
+        } catch (err) {
+          console.log(err);
         }
       }
     };
 
-    axios
-      .post("/api/documentverify/getStatus", { email })
-      .then((res) => {
-        console.log("documentverify : ", res);
-        console.log(
-          "res.data.status.document_verified_status  :",
-          res.data.status.document_verified_status
-        ); 
-
-        if (res.data.status.document_verified_status === 1) {
-          setDocumentVerfied(true);
-          setDocVerification(true);
-        } else if (res.data.status.document_verified_status === 0) {
-          setDocumentVerfied(false);
-          setDocVerification(false);
-
-          getUserCertificatesInfo();
-        }
-      })
-      .catch((err) => {
-        console.log("documentverify : ", err);
-      });
-
     const getUserDetails = () => {
-      axios
-        .post("/api/getuserbyemail", { email })
-        .then((res) => {
-          setUser(res.data.user);
-          console.log("res.data.user) : ", res.data.user);
+      setUser({});
 
-          const program_id = res.data.user.program_id;
-          const university_id = res.data.user.university_id;
+      axios
+        .post("/api/getuserbyemail", { email: user_id })
+        .then((res) => {
+          console.log("get user details", res);
+          setUser(res.data.user);
+
+          if (res.data.user.document_verified == 1) {
+            console.log(
+              "document verified 1 setDocumentVerfied",
+              res.data.user.document_verified
+            );
+            setDocumentVerfied(true);
+            setDocVerification(true);
+          } else {
+            console.log(
+              "document verified 0 setDocumentVerfied",
+              res.data.user.document_verified
+            );
+            setDocumentVerfied(false);
+            setDocVerification(false);
+          }
+
+          // get program details
+          const programId = res.data.user.program_id;
+          console.log("programId", programId);
 
           axios
-            .post("/api/programs/getprogrambyid", { id: program_id })
+            .post("/api/programs/getprogrambyid", { id: programId })
             .then((res) => {
+              console.log("program details:", res.data);
               setProgram(res.data.program);
+              localStorage.setItem("program_name", res.data.program.name);
             })
             .catch((err) => {
               console.log(err);
             });
 
+          // get university details
+          const universityId = res.data.user.university_id;
+          console.log("university_id", universityId);
+
           axios
-            .post("/api/universities/getuniversitybyid", { id: university_id })
+            .post("/api/universities/getuniversitybyid", { id: universityId })
             .then((res) => {
+              console.log("university details:", res.data);
               setUniversity(res.data.university);
+              localStorage.setItem("university_name", res.data.university.name);
             })
             .catch((err) => {
               console.log(err);
@@ -287,7 +293,7 @@ export default function Dashboard() {
       try {
         const response = await axios.post(
           "/api/offer-letter/getofferletterbyemail",
-          { email }
+          { email: user_id }
         );
         if (response) {
           if (response.data.offerLetters) {
@@ -309,7 +315,7 @@ export default function Dashboard() {
       try {
         const response = await axios.post(
           "/api/send-documents/getdocumentsbyemail",
-          { email }
+          { email: user_id }
         );
 
         if (response.data.documents) {
@@ -324,7 +330,7 @@ export default function Dashboard() {
     const getPaymentInfo = async () => {
       try {
         const response = await axios.post("/api/payment/getpaymentinfo", {
-          email,
+          email: user_id,
         });
 
         if (response.data.data.payment_status == 1) {
@@ -336,9 +342,14 @@ export default function Dashboard() {
     };
 
     const getReminders = () => {
-      const id = JSON.parse(localStorage.getItem("user")).id;
+      const userId = getUserProperty<any, 'id'>('id');
+      if (!userId) {
+        console.error("User ID not found");
+        return;
+      }
+      
       axios
-        .post("/api/appointment-notification/getreminder", { id })
+        .post("/api/appointment-notification/getreminder", { id: userId })
         .then((res) => {
           const { appointment_date, appointment_time } = res.data.reminders;
 
@@ -380,7 +391,7 @@ export default function Dashboard() {
 
     getReminders();
     setLoading(false);
-  }, [router]);
+  }, [router, elgible, setDocVerification]);
 
   const [dverified, setDverified] = useState(false);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
@@ -402,7 +413,12 @@ export default function Dashboard() {
 
     // const offerGenerated = localStorage.getItem("offerletter") === "true";
 
-    const email = JSON.parse(localStorage.getItem("user")).email;
+    const userObj = getUser() as any;
+    const email = userObj?.email;
+    if (!email) {
+      setLoading(false);
+      return;
+    }
 
     axios
       .post("/api/application-submitted/get-status", { email })
@@ -517,12 +533,18 @@ export default function Dashboard() {
       console.error("Error parsing user data:", err);
       setLoading(false);
     }
-  }, []);
+  }, [elgible, setDocVerification, document_verified]);
 
   const handleSubmitApplication = () => {
     setLoading(true);
 
-    const email = JSON.parse(localStorage.getItem("user")).email;
+    const userObj = getUser() as any;
+    const email = userObj?.email;
+    if (!email) {
+      toast.error("User email not found");
+      setLoading(false);
+      return;
+    }
 
     axios
       .post("/api/application-submitted", { email })

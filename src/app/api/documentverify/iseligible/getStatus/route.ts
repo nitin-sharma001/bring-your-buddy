@@ -1,11 +1,12 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { RowDataPacket } from "mysql2";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const { email } = await req.json();
 
-    const [status] = await db.query(
+    const [status] = await db.query<RowDataPacket[]>(
       "Select is_eligible from users where email = ?",
       [email]
     );

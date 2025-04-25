@@ -15,9 +15,36 @@ import {
 import Image from "next/image";
 import { FaPen } from "react-icons/fa";
 import { useUser } from "@/context/userContext";
+import { getUser, getUserProperty } from "@/utils/localStorage";
+
+// Add this interface for the user object
+interface UserType {
+  id?: string;
+  name?: string;
+  email?: string;
+  profile_img?: string;
+  phone_number?: string;
+  program_id?: string;
+  university_id?: string;
+  tenth_certificate?: any;
+  twelfth_certificate?: any;
+  bachelor_certificate?: any;
+}
 
 export default function ProfilePage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    profile_img: string;
+    phone_number: string;
+    program_id: string;
+    university_id: string;
+    tenth_certificate: any;
+    twelfth_certificate: any;
+    bachelor_certificate: any;
+    [key: string]: any;
+  }>({
     id: "",
     name: "",
     email: "",
@@ -27,18 +54,29 @@ export default function ProfilePage() {
     university_id: "",
     tenth_certificate: null,
     twelfth_certificate: null,
-    bachelor_certificate : null,
+    bachelor_certificate: null,
   });
 
 
   const { usercontext, setUserContext } : any= useUser();
 
+  interface ProgramType {
+    id: string;
+    name: string;
+    [key: string]: any;
+  }
 
-  const [program, setProgram] = useState();
-  const [university, setUniversity] = useState();
+  interface UniversityType {
+    id: string;
+    name: string;
+    [key: string]: any;
+  }
+
+  const [program, setProgram] = useState<ProgramType[]>([]);
+  const [university, setUniversity] = useState<UniversityType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [tenthPreview, setTenthPreview] = useState(null);
-  const [twelfthPreview, setTwelfthPreview] = useState(null);
+  const [tenthPreview, setTenthPreview] = useState<string | null>(null);
+  const [twelfthPreview, setTwelfthPreview] = useState<string | null>(null);
 
   const [profileToggle, setProfileToggle] = useState(false);
 
@@ -48,19 +86,19 @@ export default function ProfilePage() {
   const [payment_status, setPaymentStatus] = useState(false);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setUserContext((prev) => ({
+    const user = getUser() as UserType || {};
+    setUserContext((prev: any) => ({
       ...prev,
-      id: user.id,
-      name: user.name || "",
-      email: user.email || "",
-      profile_img: user.profile_img || "",
-      phone_number: user.phone_number || "",
+      id: user?.id || "",
+      name: user?.name || "",
+      email: user?.email || "",
+      profile_img: user?.profile_img || "",
+      phone_number: user?.phone_number || "",
     }));
     if (user?.id) {
       setFormData((prev) => ({
         ...prev,
-        id: user.id,
+        id: user.id || "",
         name: user.name || "",
         email: user.email || "",
         profile_img: user.profile_img || "",
@@ -105,7 +143,7 @@ export default function ProfilePage() {
     };
 
     fetchProgram();
-  }, []);
+  }, [setUserContext]);
 
   useEffect(() => {
     if (formData.program_id) {
@@ -113,7 +151,7 @@ export default function ProfilePage() {
     }
   }, [formData.program_id]); // Only run when program_id changes
 
-  const fetchUniversities = async (programId) => {
+  const fetchUniversities = async (programId: any) => {
     try {
       const res = await fetch("/api/universities", {
         method: "POST",
@@ -140,8 +178,8 @@ export default function ProfilePage() {
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       setFormData({ ...formData, [e.target.name]: file });
 
@@ -155,7 +193,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -174,7 +212,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.id) {
       toast.error("User ID is missing!");
@@ -199,12 +237,18 @@ export default function ProfilePage() {
         body: formDataToSend,
       });
 
-      const email = JSON.parse(localStorage.getItem("user")).email;
+      const email = getUserProperty<any, 'email'>('email');
+      if (!email) {
+        toast.error("User email not found");
+        setLoading(false);
+        toast.dismiss();
+        return;
+      }
 
       axios.post("/api/getuserbyemail", { email }).then((res) => {
         console.log(res.data);
 
-        setUserContext((prev) => ({
+        setUserContext((prev: any) => ({
           ...prev,
           id: res.data.user.id,
           name: res.data.user.name || "",
@@ -443,9 +487,9 @@ export default function ProfilePage() {
                           >
                             <option value="">Select a program</option>
                             {program
-                              ? program.map((program) => (
-                                  <option key={program.id} value={program.id}>
-                                    {program.name}
+                              ? program.map((prog: ProgramType) => (
+                                  <option key={prog.id} value={prog.id}>
+                                    {prog.name}
                                   </option>
                                 ))
                               : null}
@@ -465,12 +509,12 @@ export default function ProfilePage() {
                           >
                             <option value="">Select a university</option>
                             {university
-                              ? university.map((university) => (
+                              ? university.map((uni: UniversityType) => (
                                   <option
-                                    key={university.id}
-                                    value={university.id}
+                                    key={uni.id}
+                                    value={uni.id}
                                   >
-                                    {university.name}
+                                    {uni.name}
                                   </option>
                                 ))
                               : null}

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min expiry
 
     // Check if the email exists in the database
-    const [users] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+    const [users] : any = await db.query("SELECT * FROM users WHERE email = ?", [email]);
 
     console.log(users);
     

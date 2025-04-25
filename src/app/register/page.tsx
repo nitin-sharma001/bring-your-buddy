@@ -75,16 +75,16 @@ axios
       .catch((error) => console.error(error))
   }, []);
 
-  const validateEmail = (email) => {
+  const validateEmail = (email :any) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const validatePhoneNumber = (phone) => {
+  const validatePhoneNumber = (phone: any) => {
     return /^\d{10}$/.test(phone);
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: any
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -183,7 +183,7 @@ axios
     }
   };
 
-  const handleFileChange = (e, field) => {
+  const handleFileChange = (e :any, field :any) => {
     const file = e.target.files[0];
     const files = e.target.files;
 
@@ -208,7 +208,7 @@ axios
   const nextStep = () => setStep((prevStep) => prevStep + 1);
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
     const formDataToSend = new FormData();
 
@@ -218,7 +218,15 @@ axios
           formDataToSend.append(`other_certificate[${index}]`, file);
         });
       } else if (value) {
-        formDataToSend.append(key, value);
+        // Handle different types of values for FormData
+        if (typeof value === 'string' || value instanceof Blob) {
+          formDataToSend.append(key, value);
+        } else if (Array.isArray(value) && value.length === 0) {
+          // Skip empty arrays
+        } else {
+          // Convert other values to string
+          formDataToSend.append(key, String(value));
+        }
       }
     });
 
@@ -310,9 +318,9 @@ axios
                                 style={{ maxWidth: "120px" }}
                               >
                                 {country_code
-                                  ? country_code.map((country) => (
+                                  ? country_code.map((country: any) => (
                                       <option
-                                        key={country?.code_id}
+                                        key={country?.country_id}
                                         value={country?.country_id}
                                       >
                                         {country?.phone_code}
@@ -347,7 +355,7 @@ axios
                             >
                               <option value="">Select a Country</option>
                               {country
-                                ? country.map((country) => (
+                                ? country.map((country: any) => (
                                     <option key={country.id} value={country.id}>
                                       {country.name}
                                     </option>
@@ -424,7 +432,7 @@ axios
                             >
                               <option value="">Select a Country</option>
                               {countries
-                                ? countries.map((country) => (
+                                ? countries.map((country: any) => (
                                     <option key={country.id} value={country.id}>
                                       {country.name}
                                     </option>
@@ -445,7 +453,7 @@ axios
                             >
                               <option value="">Select a university</option>
                               {university
-                                ? university.map((university) => (
+                                ? university.map((university: any) => (
                                     <option
                                       key={university.id}
                                       value={university.id}
@@ -466,7 +474,7 @@ axios
                             >
                               <option value="">Select a Course Type</option>
                               {course_type
-                                ? course_type.map((type) => (
+                                ? course_type.map((type: any) => (
                                     <option key={type.id} value={type.id}>
                                       {type.name}
                                     </option>
@@ -484,7 +492,7 @@ axios
                             >
                               <option value="">Select a program</option>
                               {program
-                                ? program.map((program) => (
+                                ? program.map((program : any) => (
                                     <option key={program.id} value={program.id}>
                                       {program.name}
                                     </option>
@@ -502,7 +510,7 @@ axios
                             >
                               <option value="">Select a Course Type</option>
                               {course_trade
-                                ? course_trade.map((type) => (
+                                ? course_trade.map((type : any) => (
                                     <option key={type.id} value={type.id}>
                                       {type.name}
                                     </option>

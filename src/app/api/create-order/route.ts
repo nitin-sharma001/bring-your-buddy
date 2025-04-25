@@ -8,7 +8,7 @@ const razorpay = new Razorpay({
 });
 
 
-export async function POST(req) {
+export async function POST(req: Request) {
 
 
     // console.log("razorpay : ", razorpay);
@@ -30,7 +30,7 @@ export async function POST(req) {
           { status: 200 }
         );
     }catch(err){
-        return NextResponse.json({ error: "eror  while creating order"}, { status: 500 });
-
+        console.error("Error creating order:", err);
+        return NextResponse.json({ error: "Error while creating order"}, { status: 500 });
     }   
 }

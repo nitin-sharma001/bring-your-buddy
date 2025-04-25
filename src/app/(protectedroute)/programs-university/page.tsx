@@ -5,15 +5,25 @@ import { FaMapMarkerAlt, FaUniversity, FaMoneyBillWave, FaCalendarAlt } from 're
 import ProgramDetailsModal from "../../../components/ProgramsModal";
 import axios from 'axios';
 
-
+// Define a type for the program object
+interface ProgramType {
+  id: string;
+  name: string;
+  universityName: string;
+  location: string;
+  campus: string;
+  fees: number;
+  annual_fees: number;
+  [key: string]: any;
+}
 
 export default function ProgramsSection() {
-  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [selectedProgram, setSelectedProgram] = useState<ProgramType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ProgramType[]>([]);
 
-  const openModal = (program) => {
+  const openModal = (program: ProgramType) => {
     setSelectedProgram(program);
     setIsModalOpen(true);
   };
@@ -50,7 +60,7 @@ fetchData();
 
       <div className="programs-grid">
         {data.length > 0
-          ? data.map((program) => (
+          ? data.map((program: ProgramType) => (
               <div key={program.id} className="program-card">
                 <div className="card-header">
                   <h3 className="university-name">{program?.universityName}</h3>

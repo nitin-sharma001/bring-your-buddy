@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const [result] = await db.query(
+    const [result] : any = await db.query(
       `UPDATE users SET payment_status = 1 WHERE email = ?`,
       [ email]
     );

@@ -2,12 +2,12 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 
-export async function POST(req) {
+export async function POST(req : Request) {
     try{
 
         const {email} = await req.json();
 
-        const [user] = await db.query("Select * from users where email = ?", [email])
+        const [user] :  any = await db.query("Select * from users where email = ?", [email])
 
 
         return NextResponse.json({

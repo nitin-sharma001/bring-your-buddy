@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Badge, Button, Col, Form, Row } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { IoIosCloudUpload } from "react-icons/io";
+import { getUser } from "@/utils/localStorage";
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -21,12 +22,52 @@ const Page = () => {
     ticket_document: null as File | null,
   });
 
+  const [userData, setUserData] = useState<any>({
+    email: "",
+    photo_document: null as File | null,
+  });
+
+  const [passportExists, setPassportExists] = useState(false);
+  const [visaExists, setVisaExists] = useState(false);
+  const [ticketExists, setTicketExists] = useState(false);
+  const [photoExists, setPhotoExists] = useState(false);
+
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const email = JSON.parse(user).email;
-      setFormData(prev => ({ ...prev, email }));
-      setTicketData(prev => ({ ...prev, email }));
+    const userObj = getUser() as any;
+    
+    if (userObj && typeof userObj === 'object') {
+      setUserData(userObj);
+      
+      if (userObj.email) {
+        const email = userObj.email;
+        setFormData(prev => ({ ...prev, email }));
+        setTicketData(prev => ({ ...prev, email }));
+        
+        axios
+          .post("/api/visadocuments/get-status", { email })
+          .then((res) => {
+            console.log("visadocuments get status", res.data);
+            
+            if (res.data.documents?.passport_document) {
+              setPassportExists(true);
+            }
+            
+            if (res.data.documents?.visa_document) {
+              setVisaExists(true);
+            }
+            
+            if (res.data.documents?.ticket_document) {
+              setTicketExists(true);
+            }
+            
+            if (res.data.documents?.photo_document) {
+              setPhotoExists(true);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   }, []);
 

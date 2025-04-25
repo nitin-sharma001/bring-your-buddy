@@ -57,7 +57,7 @@ export async function POST(req: Request) {
         console.log("result_document : ", resultdocument);
         
 
- const [prev] = await db.query("select * from embassy where user_id = ?" , [user.id])
+ const [prev] :any= await db.query("select * from embassy where user_id = ?" , [user.id])
 
         console.log("prev[0] : ",prev[0]);
         

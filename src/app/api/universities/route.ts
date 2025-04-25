@@ -5,7 +5,6 @@ import { db } from "@/lib/db";
 export async function POST(req: Request) {
   const { programId  } = await req.json();
 
-  console.log(programId);
   
 
   if (!programId) {

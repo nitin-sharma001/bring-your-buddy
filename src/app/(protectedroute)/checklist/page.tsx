@@ -4,10 +4,43 @@ import React, { useEffect, useState } from 'react'
 import { Badge, Button, Col, Form, Row, Card, Alert } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { IoIosCloudUpload } from 'react-icons/io';
+import { getUser, getUserProperty } from "@/utils/localStorage";
+
+interface University {
+  id: string;
+  name: string;
+  [key: string]: any;
+}
+
+interface Program {
+  id: string;
+  name: string;
+  [key: string]: any;
+}
+
+interface FormData {
+  user_id: string;
+  offer_letter: File | null;
+  offer_letter_school: File | null;
+  admission_letter: File | null;
+  bonafide_certificate: File | null;
+  student_undertaking_form: File | null;
+  photograph: File | null;
+  parent_affidavit: File | null;
+  proof_of_residence: File | null;
+  receipt_of_paid_fees: File | null;
+  itinerary_ticket: File | null;
+  bank_statement: File | null;
+  bank_statement_owner_id: File | null;
+  passport_copy: File | null;
+  educational_certificates: File | null;
+  id_copy: File | null;
+  [key: string]: any;
+}
 
 const Page = () => {
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         user_id: "",
         offer_letter: null,
         offer_letter_school: null,
@@ -26,23 +59,23 @@ const Page = () => {
         id_copy: null,
     });
 
-    const [student_undertaking, setStudentUndertaking] = useState(null);
-    const [bonafide_certificat, setBonafidecertificate] = useState(null);
-    const [admission_lette, setAdmissionLetter] = useState(null);
-    const [offer_lette, setOfferLetter] = useState(null);
+    const [student_undertaking, setStudentUndertaking] = useState<string | null>(null);
+    const [bonafide_certificat, setBonafidecertificate] = useState<string | null>(null);
+    const [admission_lette, setAdmissionLetter] = useState<string | null>(null);
+    const [offer_lette, setOfferLetter] = useState<string | null>(null);
     
     // Preview states for new fields
-    const [photograph, setPhotograph] = useState(null);
-    const [offer_letter_school, setOfferLetterSchool] = useState(null);
-    const [parent_affidavit, setParentAffidavit] = useState(null);
-    const [proof_of_residence, setProofOfResidence] = useState(null);
-    const [receipt_of_paid_fees, setReceiptOfPaidFees] = useState(null);
-    const [itinerary_ticket, setItineraryTicket] = useState(null);
-    const [bank_statement, setBankStatement] = useState(null);
-    const [bank_statement_owner_id, setBankStatementOwnerId] = useState(null);
-    const [passport_copy, setPassportCopy] = useState(null);
-    const [educational_certificates, setEducationalCertificates] = useState(null);
-    const [id_copy, setIdCopy] = useState(null);
+    const [photograph, setPhotograph] = useState<string | null>(null);
+    const [offer_letter_school, setOfferLetterSchool] = useState<string | null>(null);
+    const [parent_affidavit, setParentAffidavit] = useState<string | null>(null);
+    const [proof_of_residence, setProofOfResidence] = useState<string | null>(null);
+    const [receipt_of_paid_fees, setReceiptOfPaidFees] = useState<string | null>(null);
+    const [itinerary_ticket, setItineraryTicket] = useState<string | null>(null);
+    const [bank_statement, setBankStatement] = useState<string | null>(null);
+    const [bank_statement_owner_id, setBankStatementOwnerId] = useState<string | null>(null);
+    const [passport_copy, setPassportCopy] = useState<string | null>(null);
+    const [educational_certificates, setEducationalCertificates] = useState<string | null>(null);
+    const [id_copy, setIdCopy] = useState<string | null>(null);
 
     const [checkbox, setCheckBox] = useState(false);
     const [userid, setUserId] = useState(0);
@@ -52,66 +85,68 @@ const Page = () => {
     const [documentsExist, setDocumentsExist] = useState(false);
     const [submittedFields, setSubmittedFields] = useState<string[]>([]);
 
+    const [user, setUser] = useState({});
+    const [program, setProgram] = useState<Program | null>(null);
+    const [university, setUniversity] = useState<University | null>(null);
+
     const handleCheckBox = () => {
         setCheckBox((prev) => !prev);
     }
 
     useEffect(() => {
         
-    const user_id = JSON.parse(localStorage.getItem("user")).id;
+    const user_id = getUserProperty<any, 'id'>('id') || "";
 
-    formData.user_id = user_id || "";
+    formData.user_id = user_id;
 
     console.log("user_id : ", user_id);
     setUserId(user_id);
 
-    }, [])
+}, [formData])
 
   const [loading, setLoading] = useState(false);
 
-    const handleFileChange = (e) => {
-      const file = e.target.files[0];
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
       if (file) {
         setFormData({ ...formData, [e.target.name]: file });
 
-      }
-
-      const previewUrl = URL.createObjectURL(file);
-      if (e.target.name === "bonafide_certificate") {
-        setBonafidecertificate(previewUrl);
-      } else if (e.target.name === "student_undertaking_form") {
-        setStudentUndertaking(previewUrl);
-      } else if (e.target.name === "admission_letter") {
-        setAdmissionLetter(previewUrl);
-      } else if (e.target.name === "offer_letter") {
-        setOfferLetter(previewUrl);
-      } 
-      
-       // Handle new file previews
-      else if (e.target.name === "offer_letter_school") {
-        setOfferLetterSchool(previewUrl);
-      } 
-     
-      else if (e.target.name === "photograph") {
-        setPhotograph(previewUrl);
-      } else if (e.target.name === "parent_affidavit") {
-        setParentAffidavit(previewUrl);
-      } else if (e.target.name === "proof_of_residence") {
-        setProofOfResidence(previewUrl);
-      } else if (e.target.name === "receipt_of_paid_fees") {
-        setReceiptOfPaidFees(previewUrl);
-      } else if (e.target.name === "itinerary_ticket") {
-        setItineraryTicket(previewUrl);
-      } else if (e.target.name === "bank_statement") {
-        setBankStatement(previewUrl);
-      } else if (e.target.name === "bank_statement_owner_id") {
-        setBankStatementOwnerId(previewUrl);
-      } else if (e.target.name === "passport_copy") {
-        setPassportCopy(previewUrl);
-      } else if (e.target.name === "educational_certificates") {
-        setEducationalCertificates(previewUrl);
-      } else if (e.target.name === "id_copy") {
-        setIdCopy(previewUrl);
+        const previewUrl = URL.createObjectURL(file);
+        if (e.target.name === "bonafide_certificate") {
+          setBonafidecertificate(previewUrl);
+        } else if (e.target.name === "student_undertaking_form") {
+          setStudentUndertaking(previewUrl);
+        } else if (e.target.name === "admission_letter") {
+          setAdmissionLetter(previewUrl);
+        } else if (e.target.name === "offer_letter") {
+          setOfferLetter(previewUrl);
+        } 
+         // Handle new file previews
+        else if (e.target.name === "offer_letter_school") {
+          setOfferLetterSchool(previewUrl);
+        } 
+       
+        else if (e.target.name === "photograph") {
+          setPhotograph(previewUrl);
+        } else if (e.target.name === "parent_affidavit") {
+          setParentAffidavit(previewUrl);
+        } else if (e.target.name === "proof_of_residence") {
+          setProofOfResidence(previewUrl);
+        } else if (e.target.name === "receipt_of_paid_fees") {
+          setReceiptOfPaidFees(previewUrl);
+        } else if (e.target.name === "itinerary_ticket") {
+          setItineraryTicket(previewUrl);
+        } else if (e.target.name === "bank_statement") {
+          setBankStatement(previewUrl);
+        } else if (e.target.name === "bank_statement_owner_id") {
+          setBankStatementOwnerId(previewUrl);
+        } else if (e.target.name === "passport_copy") {
+          setPassportCopy(previewUrl);
+        } else if (e.target.name === "educational_certificates") {
+          setEducationalCertificates(previewUrl);
+        } else if (e.target.name === "id_copy") {
+          setIdCopy(previewUrl);
+        }
       }
     };
 
@@ -146,13 +181,13 @@ const Page = () => {
       }
     }, [userid]);
 
-    // Update the handleSubmit function to include validation
-    const handleSubmit = async (e) => {
+    // Update the handleSubmit function to accept either form submit or button click events
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       
       // Validate required fields for first-time upload
       if (!documentsExist) {
-        const errors = {};
+        const errors: Record<string, string> = {};
         const requiredFields = [
           { key: "photograph", label: "Photograph" },
           { key: "parent_affidavit", label: "Affidavit from Parent" },
@@ -172,8 +207,9 @@ const Page = () => {
         ];
         
         requiredFields.forEach(field => {
-          if (!formData[field.key]) {
-            errors[field.key] = `${field.label} is required`;
+          const fieldKey = field.key as keyof FormData;
+          if (!formData[fieldKey]) {
+            errors[fieldKey] = `${field.label} is required`;
           }
         });
         
@@ -189,9 +225,9 @@ const Page = () => {
       
       const formDataToSend = new FormData();
       Object.keys(formData).forEach((key) => {
-        if (formData[key]) {
-          formDataToSend.append(key, formData[key]);
-          console.log(key, formData[key]);
+        if (formData[key as keyof FormData]) {
+          formDataToSend.append(key, formData[key as keyof FormData]);
+          console.log(key, formData[key as keyof FormData]);
         }
       });
 
@@ -218,7 +254,7 @@ const Page = () => {
           // Update submitted fields
           const newSubmittedFields = [...submittedFields];
           Object.keys(formData).forEach(key => {
-            if (formData[key] && !newSubmittedFields.includes(key)) {
+            if (formData[key as keyof FormData] && !newSubmittedFields.includes(key)) {
               newSubmittedFields.push(key);
             }
           });
@@ -245,7 +281,7 @@ const Page = () => {
     };
 
     // Add this function to check if a field has been submitted before
-    const isFieldSubmitted = (fieldName) => {
+    const isFieldSubmitted = (fieldName: string) => {
       return submittedFields.includes(fieldName);
     };
 
@@ -817,7 +853,13 @@ const Page = () => {
       </div>
 
      <div className="d-flex justify-content-end">
-        <Button onClick={handleSubmit} disabled={!checkbox || loading}>
+        <Button 
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+          }} 
+          disabled={!checkbox || loading}
+        >
           {loading ? "Uploading..." : (documentsExist ? "Update Documents" : "Submit Documents")}
         </Button>
       </div>

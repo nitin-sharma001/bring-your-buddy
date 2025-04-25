@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { RowDataPacket } from "mysql2";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const { id } = await req.json();
-    console.log("university id :", id);
     
-
-    const [university] = await db.query("SELECT * FROM universities where id =?", [
+    const [university] = await db.query<RowDataPacket[]>("SELECT * FROM universities where id =?", [
       id,
     ]);
     return NextResponse.json({ university: university[0] }, { status: 200 });

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
 
-    const [fetchuser] = await db.query("select * from users where id = ?", [id]);
+    const [fetchuser] :any= await db.query("select * from users where id = ?", [id]);
 
     const user = fetchuser[0];
 
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
   await fs.mkdir(uploadDir, { recursive: true });
 
- const saveFile = async (file) => {
+ const saveFile = async (file:any) => {
    if (!file) return null;
 
    if (typeof file === "string" && file.startsWith("/uploads/")) {

@@ -18,9 +18,9 @@ export async function POST(req: NextRequest) {
       result: result,
       message: "User fetched Successfully",
     });
-  } catch (err) {
+  } catch (err: unknown) {
     return NextResponse.json({
-      err: err.message,
+      err: err instanceof Error ? err.message : 'Unknown error',
       message: "Error while updating user status",
     });
   }

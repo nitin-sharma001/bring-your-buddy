@@ -30,11 +30,11 @@ export default function Login() {
 
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: any) => {
     e.preventDefault();
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email");
     console.log(email);
-    formData.email = email || "" ;
+    formData.email = email || "";
     console.log("formData : ", formData);
 
     axios
@@ -46,9 +46,6 @@ export default function Login() {
           localStorage.setItem("user", JSON.stringify(res.data.user));
           toast("Password Changed Successfull");
           router.push("/login");
-          
-
-        
         }
       })
       .catch((err) => {
@@ -56,28 +53,17 @@ export default function Login() {
         if (err.response.status === 400) {
           toast.error(err.response.data.error);
           console.log("err.response.error : ", err.response.data.error);
-        
-        } 
-        else if (err.response.status === 401) {
+        } else if (err.response.status === 401) {
           toast.error(err.response.data.error);
-      
-       
-        } 
-        else if (err.response.status === 403) {
+        } else if (err.response.status === 403) {
           toast.error(err.response.data.error);
-      
-       
-        } 
-        else if (err.response.status === 402) {
+        } else if (err.response.status === 402) {
           toast.error(err.response.data.error);
-        }
-        else if (err.response.status === 404) {
+        } else if (err.response.status === 404) {
           toast.error(err.response.data.error);
-        }
-        else if (err.response.status === 500) {
+        } else if (err.response.status === 500) {
           toast.error("Server error. Please try again later.");
-        }
-         else {
+        } else {
           toast.error("Something went wrong. Please try again.");
         }
       });

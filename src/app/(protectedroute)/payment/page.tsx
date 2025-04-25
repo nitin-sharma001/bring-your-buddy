@@ -3,6 +3,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table, Badge } from "react-bootstrap";
+import { getUserProperty } from "@/utils/localStorage";
+import { toast } from "react-hot-toast";
 
 
 
@@ -20,35 +22,44 @@ export default function PaymentsTable() {
   const [program, setProgram] = useState("")
   const [university, setUniversity] = useState("");
   const [status, setStatus]= useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-      const university = localStorage.getItem("university_name");
-      setUniversity(university);
+    setLoading(true);
+    
+    const email = getUserProperty<any, 'email'>('email');
+    if (!email) {
+      toast.error("User email not found");
+      setLoading(false);
+      return;
+    }
 
-      const program = localStorage.getItem("program_name");
-      setProgram(program);
+    const university :any = localStorage.getItem("university_name");
+    setUniversity(university);
 
-      const email = JSON.parse(localStorage.getItem("user")).email;
-      axios.post("/api/payment/getpaymentinfo", {
-        email: email,
-      })
-      .then((response) => {
+    const program :any= localStorage.getItem("program_name");
+    setProgram(program);
 
-        console.log("Payment status response:", response.data);
+    axios.post("/api/payment/getpaymentinfo", {
+      email: email,
+    })
+    .then((response) => {
 
-        if(response.data.data.payment_status === 1){
-        setStatus(true);
-        }else{
-          setStatus(false);
-        }
-      }
-      )
-      .catch((error) => {
-        console.error("Error fetching payment status:", error);
+      console.log("Payment status response:", response.data);
+
+      if(response.data.data.payment_status === 1){
+      setStatus(true);
+      }else{
         setStatus(false);
-
       }
-      );
+    }
+    )
+    .catch((error) => {
+      console.error("Error fetching payment status:", error);
+      setStatus(false);
+
+    }
+    );
 
   }, [])
 

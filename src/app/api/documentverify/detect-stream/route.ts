@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   const { email, program_id, text } = await req.json();
 
   if (!email || !program_id || !text) {
@@ -9,7 +10,7 @@ export async function POST(req) {
   }
 
   try {
-    const [rows] = await db.execute("SELECT name FROM programs WHERE id = ?", [
+    const [rows] = await db.execute<RowDataPacket[]>("SELECT name FROM programs WHERE id = ?", [
       program_id,
     ]);
 
@@ -49,7 +50,7 @@ export async function POST(req) {
 
     // Validate based on stream
     let isValid = false;
-    let matchedSubjects = [];
+    let matchedSubjects: string[] = [];
 
     console.log("degress name", degreeName);
     
@@ -92,7 +93,7 @@ export async function POST(req) {
             /\b(history|political\s+science|geography|sociology|psychology|hindi|english)\b/g
           ) || [];
         isValid = artsSubjects.length >= 2;
-        matchedSubjects = [...new Set(artsSubjects)];
+        matchedSubjects = [...new Set(artsSubjects)] as string[];
         break;
 
       case "science":
@@ -103,12 +104,12 @@ export async function POST(req) {
 
         const normalizedSubjects = [
           ...new Set(
-            scienceSubjects.map((sub) => {
+            scienceSubjects.map((sub: string) => {
               if (sub.includes("math")) return "Math";
               return sub.charAt(0).toUpperCase() + sub.slice(1);
             })
           ),
-        ];
+        ] as string[];
 
         isValid = normalizedSubjects.length >= 2;
         matchedSubjects = normalizedSubjects;

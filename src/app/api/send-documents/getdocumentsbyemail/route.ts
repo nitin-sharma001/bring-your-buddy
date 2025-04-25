@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     // Fetch document file paths from DB
-    const [rows] = await db.query(
+    const [rows] :any= await db.query(
       "SELECT admission_letter, bonafide_letter, visa, payment_receipt FROM users WHERE email = ?",
       [email]
     );
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     console.log("Documents : ",rows);
     
 
-    if (!rows.length) {
+    if (!rows.length ) {
       return NextResponse.json(
         { error: "Documents not found!" },
         { status: 404 }

@@ -17,7 +17,7 @@ const Page = () => {
   });
 
   const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: any,
     field: string
   ) => {
     if (e.target.files) {
@@ -66,6 +66,7 @@ const Page = () => {
 
   return (
     <div>
+
       <h1>Registration Form</h1>
 
       <Form onSubmit={handleSubmit}>
@@ -73,7 +74,7 @@ const Page = () => {
           <Form.Label>Certificate 10th:</Form.Label>
           <Form.Control
             type="file"
-            onChange={(e) => handleFileChange(e, "tenthCertificate")}
+            onChange={(e : any) => handleFileChange(e, "tenthCertificate")}
           />
         </Form.Group>
 

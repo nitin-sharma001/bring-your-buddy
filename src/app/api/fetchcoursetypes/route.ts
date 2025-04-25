@@ -20,7 +20,7 @@ export async function GET(){
 catch(error){
     return NextResponse.json({
         error:"error in fetching course trade",
-        message:error?.message,
+        message:error
     })
 }
 }

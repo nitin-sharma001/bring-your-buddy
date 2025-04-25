@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
 
     // Fetch offer letter path from DB
-    const [rows] = await db.query(
+    const [rows] : any= await db.query(
       "SELECT offer_letter FROM users WHERE email = ?",
       [email]
     );

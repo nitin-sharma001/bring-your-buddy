@@ -25,6 +25,8 @@ import {
 } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/userContext';
+import { getUserProperty } from "@/utils/localStorage";
+import { toast } from 'react-hot-toast';
 
 interface University {
   id: string;
@@ -71,161 +73,145 @@ const Page = () => {
     useEffect(() => {
         setLoading(true);
 
-
-              const email = JSON.parse(localStorage.getItem("user")).email;
-
-
-              axios
-                .post("/api/documentverify/getStatus", { email })
-                .then((res) => {
-                  console.log("documentverify : ", res);
-                  console.log(
-                    "res.data.status.document_verified_status  :",
-                    res.data.status.document_verified_status
-                  );
-
-                  if (res.data.status.document_verified_status === 1) {
-                    setDverified(true);
-                  } else if (res.data.status.document_verified_status === 0) {
-                    setDverified(false);
-                    // getUserCertificatesInfo();
-                  }
-                })
-                .catch((err) => {
-                  console.log("documentverify : ", err);
-                });
-
-
-      
-        
-        axios
-              .post("/api/application-submitted/get-status", { email })
-              .then((res) => {
-                console.log("application submitted get Status", res);
-        
-                if (res.data.status.application_submitted == 0) {
-                  setApplicationSubmitted(false);
-                } else if (res.data.status.application_submitted == 1) {
-                  setApplicationSubmitted(true);
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-                setApplicationSubmitted(false);
-              });
-        
-              axios
-                .post("/api/offer-letter/getStatus", { email })
-                .then((res) => {
-                  console.log("offer letter ", res);
-        
-                  if (res.data[0].offer_letter_status == 0) {
-                    setOfferLetterGenerated(false);
-                  } else if (res.data[0].offer_letter_status == 1) {
-                    setOfferLetterGenerated(true);
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setOfferLetterGenerated(false);
-                });
-        axios
-          .post("/api/payment/getpaymentinfo", { email })
-          .then((res) => {
-            console.log(" getpaymentinfo", res);
-
-            if (res.data.data.payment_status == 0) {
-              setPaymentCompleted(false);
-            } else if (res.data.data.payment_status == 1) {
-              setPaymentCompleted(true);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            setPaymentCompleted(false);
-          });
-        
-        const userString = localStorage.getItem("user");
-        if (!userString) {
+        const email = getUserProperty<any, 'email'>('email');
+        if (!email) {
+            toast.error("User email not found");
             setLoading(false);
             return;
         }
 
-        try {
-            const userData = JSON.parse(userString);
-            const email = userData?.email;
-            
-            if (!email) {
-                setLoading(false);
-                return;
-            }
-        
-            const getUserDetails = async () => {
-                try {
-                    const userResponse = await axios.post("/api/getuserbyemail", { email });
-                    const userData = userResponse.data.user;
-                    setUser(userData);
-                    
-                    if (userData?.program_id) {
-                        try {
-                            const programResponse = await axios.post(
-                                "/api/programs/getprogrambyid", 
-                                { id: userData.program_id }
-                            );
-                            setProgram(programResponse.data.program);
-                            localStorage.setItem('program_name', programResponse.data.program.name);
-                        } catch (err) {
-                            console.error("Error fetching program:", err);
-                        }
-                    }
-                    
-                    if (userData?.university_id) {
-                        try {
-                            const universityResponse = await axios.post(
-                                "/api/universities/getuniversitybyid", 
-                                { id: userData.university_id }
-                            );
-                            setUniversity(universityResponse.data.university);
-                            localStorage.setItem('university_name', universityResponse.data.university.name);
-                        } catch (err) {
-                            console.error("Error fetching university:", err);
-                        }
-                    }
-                } catch (err) {
-                    console.error("Error fetching user:", err);
-                } finally {
-                    setLoading(false);
+        axios
+            .post("/api/documentverify/getStatus", { email })
+            .then((res) => {
+                console.log("documentverify : ", res);
+                console.log(
+                    "res.data.status.document_verified_status  :",
+                    res.data.status.document_verified_status
+                );
+
+                if (res.data.status.document_verified_status === 1) {
+                    setDverified(true);
+                } else if (res.data.status.document_verified_status === 0) {
+                    setDverified(false);
+                    // getUserCertificatesInfo();
                 }
+            })
+            .catch((err) => {
+                console.log("documentverify : ", err);
+            });
+
+        axios
+            .post("/api/application-submitted/get-status", { email })
+            .then((res) => {
+                console.log("application submitted get Status", res);
+
+                if (res.data.status.application_submitted == 0) {
+                    setApplicationSubmitted(false);
+                } else if (res.data.status.application_submitted == 1) {
+                    setApplicationSubmitted(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setApplicationSubmitted(false);
+            });
+
+        axios
+            .post("/api/offer-letter/getStatus", { email })
+            .then((res) => {
+                console.log("offer letter ", res);
+
+                if (res.data[0].offer_letter_status == 0) {
+                    setOfferLetterGenerated(false);
+                } else if (res.data[0].offer_letter_status == 1) {
+                    setOfferLetterGenerated(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setOfferLetterGenerated(false);
+            });
+        axios
+            .post("/api/payment/getpaymentinfo", { email })
+            .then((res) => {
+                console.log(" getpaymentinfo", res);
+
+                if (res.data.data.payment_status == 0) {
+                    setPaymentCompleted(false);
+                } else if (res.data.data.payment_status == 1) {
+                    setPaymentCompleted(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setPaymentCompleted(false);
+            });
+
+        const getUserDetails = async () => {
+            try {
+                const userResponse = await axios.post("/api/getuserbyemail", { email });
+                const userData = userResponse.data.user;
+                setUser(userData);
+                
+                if (userData?.program_id) {
+                    try {
+                        const programResponse = await axios.post(
+                            "/api/programs/getprogrambyid", 
+                            { id: userData.program_id }
+                        );
+                        setProgram(programResponse.data.program);
+                        localStorage.setItem('program_name', programResponse.data.program.name);
+                    } catch (err) {
+                        console.error("Error fetching program:", err);
+                    }
+                }
+                
+                if (userData?.university_id) {
+                    try {
+                        const universityResponse = await axios.post(
+                            "/api/universities/getuniversitybyid", 
+                            { id: userData.university_id }
+                        );
+                        setUniversity(universityResponse.data.university);
+                        localStorage.setItem('university_name', universityResponse.data.university.name);
+                    } catch (err) {
+                        console.error("Error fetching university:", err);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching user:", err);
+            } finally {
+                setLoading(false);
+            }
         };
 
         getUserDetails();
-        } catch (err) {
-            console.error("Error parsing user data:", err);
-            setLoading(false);
-        }
     }, []);
 
-    const handleSubmitApplication = () => {
-      setLoading(true);
-
-      const email = JSON.parse(localStorage.getItem("user")).email;
-
-      axios
-        .post("/api/application-submitted", { email })
-        .then((res) => {
-          console.log("application_submitted", res.data);
-
-          localStorage.setItem("application_submitted", "true");
-
-          setApplicationSubmitted(true);
-          setShowSuccessMessage(true);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    const handleSubmitApplication = async () => {
+        setLoading(true);
         
-        
+        const email = getUserProperty<any, 'email'>('email');
+        if (!email) {
+            toast.error("User email not found");
+            setLoading(false);
+            return;
+        }
+
+        axios
+            .post("/api/application-submitted", { email })
+            .then((res) => {
+                console.log("application_submitted", res.data);
+
+                localStorage.setItem("application_submitted", "true");
+
+                setApplicationSubmitted(true);
+                setShowSuccessMessage(true);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
     
     const handleNextStep = () => {

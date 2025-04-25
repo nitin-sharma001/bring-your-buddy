@@ -70,16 +70,26 @@ export async function POST(req: Request) {
 
       const [prev] = await db.query("select * from reminder where user_id = ?;", [user.id])
 
-        console.log("prev[0] : ",prev[0]);
-        
+      console.log("prev : ", prev);
+      
+      // Define a type for the record
+      interface ReminderRecord {
+        user_id: string | number;
+        [key: string]: any;
+      }
 
-        if(prev[0]?.user_id === user.id){
+      // Safely type the record
+      const prevRecord = Array.isArray(prev) && prev.length > 0 
+        ? prev[0] as ReminderRecord
+        : null;
+
+      if(prevRecord && prevRecord.user_id === user.id){
         const [reminders] = await db.query(
           "UPDATE reminder SET appointment_date = ?,appointment_time = ?, date_document = ? WHERE user_id = ?;",
           [appointment_date,appointment_time, date_document, user.id]
         );
 
-        }else {
+      }else {
        
     const [reminders] = (await db.query(
       "INSERT into reminder (user_id, appointment_date,appointment_time, date_document) values(?, ?,?, ?);",

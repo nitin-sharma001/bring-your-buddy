@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
 
     const email = formData.get("email");
-    const visa_decision_letter = formData.get("visa_result_document");
+    const visa_decision_letter = formData.get("visa_result_document") || null;
 
     console.log("visa_decision_letter : ", visa_decision_letter);
     console.log("email : ", email);
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     
 
 
-    const [users] = (await db.query(
+    const [users]: any  = (await db.query(
       "SELECT id, name, email FROM users WHERE email = ?",
       [email]
     )) as any[];
@@ -42,8 +42,8 @@ export async function POST(req: Request) {
     const user = users[0];
 
 
-    const saveFile = async (file: File | null, name: string) => {
-          if (!file) return null;
+    const saveFile = async (file: FormDataEntryValue | null, name: string) => {
+          if (!file || typeof file === 'string') return null;
     
           const bytes = await file.arrayBuffer();
           const buffer = Buffer.from(bytes);
@@ -62,7 +62,10 @@ export async function POST(req: Request) {
         console.log("user.id : ", user.id);
 
 
-        const [prev] = await db.query("select * from visa where user_id = ?" , [user.id])
+        const [prev]: any = await db.query(
+          "select * from visa where user_id = ?",
+          [user.id]
+        );
 
         console.log("prev[0] : ",prev[0]);
         

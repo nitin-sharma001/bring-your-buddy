@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const [result] = await db.query(
+    const [result] :any = await db.query(
       "UPDATE users SET password = ? WHERE email = ?",
       [hashedPassword, email]
     );

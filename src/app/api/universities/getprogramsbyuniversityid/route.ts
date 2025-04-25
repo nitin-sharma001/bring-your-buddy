@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export async function POST(req) {
+export async function POST(req : Request) {
   try {
     const { id } = await req.json();
-    console.log("university id :", id);
+
     
 
-    const [university] = await db.query("SELECT * FROM universities where program_id =?", [
+    const [university] : any = await db.query("SELECT * FROM universities where program_id =?", [
       id,
     ]);
 
-    console.log("university by id : ", university[0]);
 
     const [programs] = await db.query(
       "SELECT * FROM programs where id = ?", university[0].program_id )
